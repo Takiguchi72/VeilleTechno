@@ -14,11 +14,20 @@ CREATE SCHEMA veilletechnologique
 -- Sélection du shéma
 SET SCHEMA 'veilletechnologique';
 
+-- Création de la table t_users
+create table t_users(
+	identifiant varchar(30) not null,
+	email varchar(105),
+	constraint pk_t_users primary key (identifiant)
+);
+
 -- Création de la table t_url
 create table t_url(
 	id integer not null,
 	adresse varchar(500) not null,
-	constraint pk_t_url primary key (id)
+	createur varchar(30),
+	constraint pk_t_url primary key (id),
+	constraint fk_t_url_t_users foreign key (createur) references t_users (identifiant)
 );
 
 -- Création de la table t_tag
