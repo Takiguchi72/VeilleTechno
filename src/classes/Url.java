@@ -11,6 +11,7 @@ public class Url {
 	private String adresse;
 	private List<Tag> listeTagAssocies;
 	
+	
 	/* **********************************
 	 * A C C E S S E U R S
 	 * ******************************* */
