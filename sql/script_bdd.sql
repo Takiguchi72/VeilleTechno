@@ -1,15 +1,15 @@
 -- Création de la bdd
-CREATE DATABASE veilletechno
-  WITH OWNER = "f.thierry"
-       ENCODING = 'UTF8'
-       TABLESPACE = pg_default
-       LC_COLLATE = 'fr_FR.UTF-8'
-       LC_CTYPE = 'fr_FR.UTF-8'
-       CONNECTION LIMIT = -1;
+--CREATE DATABASE veilletechno
+--  WITH OWNER = "f.thierry"
+--       ENCODING = 'UTF8'
+--       TABLESPACE = pg_default
+--       LC_COLLATE = 'fr_FR.UTF-8'
+--       LC_CTYPE = 'fr_FR.UTF-8'
+--       CONNECTION LIMIT = -1;
 
 -- Création du shéma
-CREATE SCHEMA veilletechnologique
-  AUTHORIZATION "f.thierry";
+--CREATE SCHEMA veilletechnologique
+--  AUTHORIZATION "f.thierry";
 
 -- Sélection du shéma
 SET SCHEMA 'veilletechnologique';
@@ -18,12 +18,14 @@ SET SCHEMA 'veilletechnologique';
 create table t_users(
 	identifiant varchar(30) not null,
 	email varchar(105),
+	passwd varchar(50),
 	constraint pk_t_users primary key (identifiant)
 );
 
 -- Création de la table t_url
 create table t_url(
 	id integer not null,
+	intitule varchar(100),
 	adresse varchar(500) not null,
 	createur varchar(30),
 	constraint pk_t_url primary key (id),
