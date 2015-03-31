@@ -16,7 +16,9 @@ public class FenetrePrincipale extends JFrame {
 	 * ******************************* */
 	private BarreDeMenu laBarreDeMenu;
 	private JPanelConnexion panelConnexion;
-	public JPanel contentPane;
+	private JPanel fenetreConteneur;
+	private JPanelRechercher panelRecherche;
+	
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -54,11 +56,11 @@ public class FenetrePrincipale extends JFrame {
 		setResizable(false);
 		setTitle("Programme de Veille technologique");
 		
-		contentPane = new JPanel();
-		contentPane.setBounds(new Rectangle(0, 0, 798, 540));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
+		fenetreConteneur = new JPanel();
+		fenetreConteneur.setBounds(new Rectangle(0, 0, 798, 540));
+		fenetreConteneur.setBorder(new EmptyBorder(5, 5, 5, 5));
+		fenetreConteneur.setLayout(new BorderLayout(0, 0));
+		setContentPane(fenetreConteneur);
 		
 		
 		//Ajout de la barre de menu
@@ -67,9 +69,13 @@ public class FenetrePrincipale extends JFrame {
 		//Ajout de la fenetre de connexion
 		panelConnexion = new JPanelConnexion(controlleurPrincipal);
 		panelConnexion.setBounds(0, 28, 795, 540);
-		panelConnexion.setVisible(true);
-		
-		contentPane.add(panelConnexion);
+		panelConnexion.setVisible(false);
+		fenetreConteneur.add(panelConnexion);
+		//Ajout de la fenetre de recherche
+		panelRecherche = new JPanelRechercher(controlleurPrincipal);
+		panelRecherche.setBounds(0, 28, 795, 540);
+		panelRecherche.setVisible(true);
+		fenetreConteneur.add(panelRecherche);
 		
 		setVisible(true);
 	}//fin constructeur

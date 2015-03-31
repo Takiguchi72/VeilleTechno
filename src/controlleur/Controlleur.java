@@ -2,6 +2,10 @@ package controlleur;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import classes.Url;
+import dao.DAO;
+import dao.UrlDAO;
 import vues.FenetrePrincipale;
 
 public class Controlleur implements ActionListener {
@@ -9,17 +13,25 @@ public class Controlleur implements ActionListener {
 	 * A T T R I B U T S
 	 * ******************************* */
 	private FenetrePrincipale laFenetre;
+	private DAO<Url> listeUrl;
 	
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
 	
+	
+
+	public DAO<Url> getListeUrl() {
+		return listeUrl;
+	}
+
 	/**
 	 * Constructeur par défaut
 	 */
 	public Controlleur()
 	{
 		super();
+		listeUrl = new UrlDAO();
 	}//fin constructeur
 	
 	/* **********************************
