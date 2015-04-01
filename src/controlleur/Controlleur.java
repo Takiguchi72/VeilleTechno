@@ -18,12 +18,13 @@ public class Controlleur implements ActionListener {
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
-	
-	
-
+	/**
+	 * Retourne l'attribut listeUrl du Controlleur
+	 * @return L'attribut listeUrl [DAO<Url>]
+	 */
 	public DAO<Url> getListeUrl() {
 		return listeUrl;
-	}
+	}//fin getListeUrl
 
 	/**
 	 * Constructeur par défaut

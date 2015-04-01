@@ -11,6 +11,7 @@ public class BarreDeMenu extends JMenuBar {
 	 * ******************************* */
 	private JMenu mnFichier;
 	private JMenuItem mnitQuitter;
+	private JMenuItem mnitConsulter;
 	private JMenuItem mnitConnexion;
 	
 	/* **********************************
@@ -26,6 +27,14 @@ public class BarreDeMenu extends JMenuBar {
 		return mnitQuitter;
 	}//fin getMnitQuitter
 	
+	/**
+	 * Accesseur de l'attribut mnuitConsulter
+	 * @return L'attribut mnitConsulter [JMenuItem]
+	 */
+	public JMenuItem getMnitConsulter() {
+		return mnitConsulter;
+	}//fin getMnitConsulter
+
 	/**
 	 * Accesseur de l'attribut mnitConnexion
 	 * @return L'attribut mnitConnexion [JMenuItem]
@@ -51,6 +60,11 @@ public class BarreDeMenu extends JMenuBar {
 		mnitQuitter = new JMenuItem("Quitter");
 		mnitQuitter.addActionListener(controlleurPrincipal);
 		mnFichier.add(mnitQuitter);
+		
+		mnitConsulter = new JMenuItem("Consulter");
+		mnitConsulter.addActionListener(controlleurPrincipal);
+		mnitConsulter.setVisible(true);
+		mnFichier.add(mnitConsulter);
 		
 		mnitConnexion = new JMenuItem("Deconnexion");
 		mnitConnexion.addActionListener(controlleurPrincipal);

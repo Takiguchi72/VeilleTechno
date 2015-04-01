@@ -47,7 +47,7 @@ public class UrlDAO extends DAO<Url> {
 										ResultSet.CONCUR_UPDATABLE)
 								.executeQuery("SELECT * FROM \"veilletechnologique\".t_url WHERE id=" + id + ";");
 			if(result.first())
-				lUrl = new Url(id, result.getString("adresse"));
+				lUrl = new Url(id, result.getString("intitule"), result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur")));
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}//fin catch
@@ -102,7 +102,7 @@ public class UrlDAO extends DAO<Url> {
 			ResultSet result = this.connect.createStatement().executeQuery("SELECT * FROM \"veilletechnologique\".t_url ;");
 			while(result.next())
 			{
-				listeDUrl.add(new Url(result.getInt("id"), result.getString("adresse")));
+				listeDUrl.add(new Url(result.getInt("id"), result.getString("intitule"), result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur"))));
 			}//fin while
 		} catch (SQLException ex) {
 			ex.printStackTrace();

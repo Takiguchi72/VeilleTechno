@@ -8,7 +8,9 @@ public class Url {
 	 * A T T R I B U T S
 	 * ******************************* */
 	private int id;
+	private String intitule;
 	private String adresse;
+	private Utilisateur createur;
 	private List<Tag> listeTagAssocies;
 	
 	
@@ -31,6 +33,14 @@ public class Url {
 		this.id = id;
 	}
 	
+	public String getIntitule() {
+		return intitule;
+	}
+
+	public void setIntitule(String intitule) {
+		this.intitule = intitule;
+	}
+	
 	/**
 	 * Retourne l'adresse de l'Url
 	 * @return Adresse de l'Url [String]
@@ -47,6 +57,14 @@ public class Url {
 		this.adresse = adresse;
 	}
 	
+	public Utilisateur getCreateur() {
+		return createur;
+	}
+
+	public void setCreateur(Utilisateur createur) {
+		this.createur = createur;
+	}
+
 	/**
 	 * Retourne la liste des Tags associés à l'Url
 	 * @return Liste des Tags associés à l'Url [List<Tag>]
@@ -73,10 +91,12 @@ public class Url {
 	 * @param L'id de l'url [Integer]
 	 * @param L'adresse url [String]
 	 */
-	public Url(int id, String adresse)
+	public Url(int id, String intitule, String adresse, Utilisateur createur)
 	{
-		this.id		 = id;
-		this.adresse = adresse;
+		this.id		 	= id;
+		this.intitule 	= intitule;
+		this.adresse 	= adresse;
+		this.createur	= createur;
 		this.listeTagAssocies = new ArrayList<Tag>();
 	}//fin Url(...)
 	

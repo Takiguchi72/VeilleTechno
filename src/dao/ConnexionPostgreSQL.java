@@ -27,7 +27,7 @@ public class ConnexionPostgreSQL {
 		Connection theConnection = null;
 		try{
 			//Connexion à la basse
-			theConnection = DriverManager.getConnection("jdbc:postgresql://" + DonneesConnexion.getAddress() + "/fthierry", DonneesConnexion.getLogin(), DonneesConnexion.getMdp());
+			theConnection = DriverManager.getConnection("jdbc:postgresql://" + DonneesConnexion.getAddress() + "/veilletechno", DonneesConnexion.getLogin(), DonneesConnexion.getMdp());
 		} catch (Exception e) {
 			System.out.println("Erreur lors de la connexion à la base de donnée :\n" + e);
 		}//Fin catch

@@ -5,17 +5,15 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
-import javax.swing.table.TableModel;
-
+import classes.JTableRechercher;
 import controlleur.Controlleur;
-import javax.swing.JList;
 
 public class JPanelRechercher extends JPanel {
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
 	private JTextField txbRecherche;
-	private JTable tableUrls;
+	private JTableRechercher tableUrls;
 	private JButton btnRechercher;
 	
 	/* **********************************
@@ -33,8 +31,6 @@ public class JPanelRechercher extends JPanel {
 	public JButton getBtnRechercher() {
 		return btnRechercher;
 	}
-
-	
 
 	/* **********************************
 	 * C O N S T R U C T E U R S
@@ -56,13 +52,11 @@ public class JPanelRechercher extends JPanel {
 		btnRechercher.setBounds(540, 28, 90, 22);
 		btnRechercher.addActionListener(controlleurPrincipal);
 		add(btnRechercher);
-		tableUrls = new JTable();
+		
+		//On initialise la table des Urls à partir du contenu de la table t_url 
+		tableUrls = new JTableRechercher(controlleurPrincipal.getListeUrl().selectAll());
 		tableUrls.setBounds(53, 173, 626, 236);
 		add(tableUrls);
-	}//fin JPanelRechercher
-	
-	private void initTableUrls(Controlleur controlleurPrincipal)
-	{
 		
-	}//fin initTableUrls
+	}//fin JPanelRechercher
 }//fin classe
