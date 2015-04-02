@@ -2,9 +2,11 @@ package vues;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JTable;
+
 import classes.JTableRechercher;
 import controlleur.Controlleur;
 
@@ -55,8 +57,14 @@ public class JPanelRechercher extends JPanel {
 		
 		//On initialise la table des Urls à partir du contenu de la table t_url 
 		tableUrls = new JTableRechercher(controlleurPrincipal.getListeUrl().selectAll());
-		tableUrls.setBounds(53, 173, 626, 236);
-		add(tableUrls);
+		tableUrls.setBounds(55, 90, 650, 100);
+		
+		JScrollPane scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setLocation(20, 70);
+		scrollPane.setSize(745, 385);
+		add(scrollPane);
+		
+		//add(tableUrls);
 		
 	}//fin JPanelRechercher
 }//fin classe
