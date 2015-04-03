@@ -109,4 +109,39 @@ public class UrlDAO extends DAO<Url> {
 		}//fin catch
 		return listeDUrl;
 	}//fin selectAll
+	
+	/**
+	 * Retourne la liste des Urls correspondant aux critères de selection passés en paramètres 
+	 * @param Critère de selection [String]
+	 * @return La liste d'Urls correspondant aux critères de selection [List<Url>]
+	 */
+	public List<Url> select(String clauseWhere) throws Exception
+	{
+		List<Url> listeDUrl = new ArrayList<Url>();
+		//Si aucun critère n'est passé en paramètre, une exception est levée
+		if (clauseWhere.equals(""))
+			throw new Exception("Veuillez indiquer votre recherche", new Throwable("aucunCritere"));
+			
+		try {
+			ResultSet result = this.connect
+					.createStatement(
+							ResultSet.TYPE_SCROLL_INSENSITIVE,
+							ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM \"veilletechnologique\".t_url "
+									+ "WHERE intitule like '%" + clauseWhere + "%' or adresse like '%" + clauseWhere + "%' "
+									+ "or createur like '%" + clauseWhere + "%'");
+			//Pour chaque tuple dans le résultat retourné par la bdd,
+			while(result.next())
+			{
+				//On ajoute à la liste l'Url correspondant au tuple
+				listeDUrl.add(new Url(  result.getInt("id"), 
+										result.getString("intitule"), 
+										result.getString("adresse"), 
+										new UtilisateurDAO().read(result.getString("createur"))));
+			}//fin while
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return listeDUrl;
+	}//fin select
 }//fin classe

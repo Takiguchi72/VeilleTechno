@@ -83,27 +83,23 @@ public class Controlleur implements ActionListener, MouseListener {
 		this.laFenetre = laFenetre;
 	}//fin ajouterFenetrePrincipale
 
-	@Override
+	
 	public void mouseEntered(MouseEvent e) {
 		
 	}
 
-	@Override
 	public void mouseExited(MouseEvent e) {
 		
 	}
 
-	@Override
 	public void mousePressed(MouseEvent e) {
 		
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent e) {
 		
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Début mouseClicked");
 		if(e.getSource() == laFenetre.getPanelRecherche().getTableUrls())
