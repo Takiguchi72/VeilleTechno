@@ -1,5 +1,8 @@
 package classes;
 
+import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 import javax.swing.JScrollPane;
@@ -7,6 +10,8 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
+
+import controlleur.Controlleur;
 
 public class JTableRechercher extends JTable {
 	//entete correspond aux Entetes qui seront affichés dans la JTable, soit les attributs de la classe Url (4)
@@ -31,19 +36,63 @@ public class JTableRechercher extends JTable {
         //On aligne son contenu pour le centrer
         alignerContenuColonne(col,"CENTER");
         
-        
         //On fait de même avec les autres colonnes
         //2ème colonne
         col = getColumnModel().getColumn(1);
         col.setPreferredWidth(340);
         //3ème colonne
         col = getColumnModel().getColumn(2);
-        col.setPreferredWidth(272);
+        col.setPreferredWidth(275);
         //4ème colonne
         col = getColumnModel().getColumn(3);
         col.setPreferredWidth(70);
         alignerContenuColonne(col,"CENTER");
+        
+        addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+              if (e.getClickCount() == 2) {
+                Point p = e.getPoint();
+                
+                int row = rowAtPoint(p);
+                int column = convertColumnIndexToModel(columnAtPoint(p));
+                if (row >= 0 && column >= 0) {
+                	System.out.println("T'as cliqué sur la " + (row + 1) + "eme ligne et la " + (column + 1) + "eme colone");
+                	System.out.println(getValueAt(row,2).toString());
+                }
+              }
+            }
+        });
 	}//fin constructeur
+	
+	public JTableRechercher(Controlleur controlleurPrincipal)
+	{
+		//On instancie la JTable à partir de la liste qui sera convertie en tableau d'objets, et les entetes
+				super(getDonneesFromList(controlleurPrincipal.getListeUrl().selectAll()), entete);
+				//On empeche l'ajustement automatique de la JTable
+				setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				
+				//On va définir la taille de chaque colonne de la table
+				//On récupère la 1ère colonne
+				TableColumn col = getColumnModel().getColumn(0);
+				//On lui définit sa largeur
+		        col.setPreferredWidth(45);
+		        //On aligne son contenu pour le centrer
+		        alignerContenuColonne(col,"CENTER");
+		        
+		        //On fait de même avec les autres colonnes
+		        //2ème colonne
+		        col = getColumnModel().getColumn(1);
+		        col.setPreferredWidth(340);
+		        //3ème colonne
+		        col = getColumnModel().getColumn(2);
+		        col.setPreferredWidth(275);
+		        //4ème colonne
+		        col = getColumnModel().getColumn(3);
+		        col.setPreferredWidth(70);
+		        alignerContenuColonne(col,"CENTER");
+		        
+		        addMouseListener(controlleurPrincipal);
+	}
 	
 	/**
 	 * Convertit une liste d'<Url>s en tableau d'<Object>s

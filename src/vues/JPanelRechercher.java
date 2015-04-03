@@ -17,6 +17,7 @@ public class JPanelRechercher extends JPanel {
 	private JTextField txbRecherche;
 	private JTableRechercher tableUrls;
 	private JButton btnRechercher;
+	private JScrollPane scrollPane;
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -33,11 +34,15 @@ public class JPanelRechercher extends JPanel {
 	public JButton getBtnRechercher() {
 		return btnRechercher;
 	}
-
+	
+	public JScrollPane getScrollPane() {
+			return scrollPane;
+	}
+	
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
-	
+
 	public JPanelRechercher(Controlleur controlleurPrincipal) {
 		setLayout(null);
 		
@@ -56,12 +61,12 @@ public class JPanelRechercher extends JPanel {
 		add(btnRechercher);
 		
 		//On initialise la table des Urls à partir du contenu de la table t_url 
-		tableUrls = new JTableRechercher(controlleurPrincipal.getListeUrl().selectAll());
+		tableUrls = new JTableRechercher(controlleurPrincipal);
 		tableUrls.setBounds(55, 90, 650, 100);
 		
-		JScrollPane scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setLocation(20, 70);
-		scrollPane.setSize(745, 385);
+		scrollPane.setSize(747, 385);
 		add(scrollPane);
 		
 		//add(tableUrls);

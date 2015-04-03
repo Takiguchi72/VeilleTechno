@@ -46,6 +46,10 @@ public class FenetrePrincipale extends JFrame {
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
 	
+	public JPanelRechercher getPanelRecherche() {
+		return panelRecherche;
+	}
+
 	/**
 	 * Constructeur principal
 	 */
