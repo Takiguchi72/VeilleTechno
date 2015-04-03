@@ -64,34 +64,34 @@ public class JTableRechercher extends JTable {
         });
 	}//fin constructeur
 	
-	public JTableRechercher(Controlleur controlleurPrincipal)
+	public JTableRechercher(Controlleur controlleurPrincipal, String critere) throws Exception
 	{
 		//On instancie la JTable à partir de la liste qui sera convertie en tableau d'objets, et les entetes
-				super(getDonneesFromList(controlleurPrincipal.getListeUrl().selectAll()), entete);
-				//On empeche l'ajustement automatique de la JTable
-				setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				
-				//On va définir la taille de chaque colonne de la table
-				//On récupère la 1ère colonne
-				TableColumn col = getColumnModel().getColumn(0);
-				//On lui définit sa largeur
-		        col.setPreferredWidth(45);
-		        //On aligne son contenu pour le centrer
-		        alignerContenuColonne(col,"CENTER");
-		        
-		        //On fait de même avec les autres colonnes
-		        //2ème colonne
-		        col = getColumnModel().getColumn(1);
-		        col.setPreferredWidth(340);
-		        //3ème colonne
-		        col = getColumnModel().getColumn(2);
-		        col.setPreferredWidth(275);
-		        //4ème colonne
-		        col = getColumnModel().getColumn(3);
-		        col.setPreferredWidth(70);
-		        alignerContenuColonne(col,"CENTER");
-		        
-		        addMouseListener(controlleurPrincipal);
+		super(getDonneesFromList(controlleurPrincipal.getListeUrl().selectCorrespondantA(critere)), entete);
+		//On empeche l'ajustement automatique de la JTable
+		setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+
+		//On va définir la taille de chaque colonne de la table
+		//On récupère la 1ère colonne
+		TableColumn col = getColumnModel().getColumn(0);
+		//On lui définit sa largeur
+		col.setPreferredWidth(45);
+		//On aligne son contenu pour le centrer
+		alignerContenuColonne(col,"CENTER");
+
+		//On fait de même avec les autres colonnes
+		//2ème colonne
+		col = getColumnModel().getColumn(1);
+		col.setPreferredWidth(340);
+		//3ème colonne
+		col = getColumnModel().getColumn(2);
+		col.setPreferredWidth(275);
+		//4ème colonne
+		col = getColumnModel().getColumn(3);
+		col.setPreferredWidth(70);
+		alignerContenuColonne(col,"CENTER");
+
+		addMouseListener(controlleurPrincipal);
 	}
 	
 	/**

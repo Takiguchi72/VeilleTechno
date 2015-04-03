@@ -115,9 +115,9 @@ public class UrlDAO extends DAO<Url> {
 	 * @param Critère de selection [String]
 	 * @return La liste d'Urls correspondant aux critères de selection [List<Url>]
 	 */
-	public List<Url> select(String clauseWhere) throws Exception
+	public List<Url> selectCorrespondantA(String clauseWhere) throws Exception
 	{
-		List<Url> listeDUrl = new ArrayList<Url>();
+		List<Url> listeDUrls = new ArrayList<Url>();
 		//Si aucun critère n'est passé en paramètre, une exception est levée
 		if (clauseWhere.equals(""))
 			throw new Exception("Veuillez indiquer votre recherche", new Throwable("aucunCritere"));
@@ -134,7 +134,7 @@ public class UrlDAO extends DAO<Url> {
 			while(result.next())
 			{
 				//On ajoute à la liste l'Url correspondant au tuple
-				listeDUrl.add(new Url(  result.getInt("id"), 
+				listeDUrls.add(new Url(  result.getInt("id"), 
 										result.getString("intitule"), 
 										result.getString("adresse"), 
 										new UtilisateurDAO().read(result.getString("createur"))));
@@ -142,6 +142,6 @@ public class UrlDAO extends DAO<Url> {
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 		}//fin catch
-		return listeDUrl;
+		return listeDUrls;
 	}//fin select
 }//fin classe

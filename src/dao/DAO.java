@@ -51,4 +51,12 @@ public abstract class DAO<T> {
 	 */
 	public abstract List<T> selectAll();
 	
+	/**
+	 * Abstract method to get the elements that match to the criterion
+	 * @param critere
+	 * @return
+	 * @throws Exception
+	 */
+	public abstract List<T> selectCorrespondantA(String critere) throws Exception;
+	
 }//end Class

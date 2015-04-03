@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import classes.Tag;
+import classes.Url;
 
 public class TagDAO extends DAO<Tag> {
 	/**
@@ -112,4 +113,36 @@ public class TagDAO extends DAO<Tag> {
 		}//fin catch
 		return listeDUrl;
 	}//fin selectAll
+	
+	/**
+	 * Retourne la liste des Tags correspondant au critère de selection passé en paramètre 
+	 * @param Critère de selection [String]
+	 * @return La liste de Tags correspondant aux critères de selection [List<Tag>]
+	 */
+	public List<Tag> selectCorrespondantA(String clauseWhere) throws Exception
+	{
+		List<Tag> listeDeTags = new ArrayList<Tag>();
+		//Si aucun critère n'est passé en paramètre, une exception est levée
+		if (clauseWhere.equals(""))
+			throw new Exception("Veuillez indiquer un critère de selection", new Throwable("aucunCritere"));
+			
+		try {
+			ResultSet result = this.connect
+					.createStatement(
+							ResultSet.TYPE_SCROLL_INSENSITIVE,
+							ResultSet.CONCUR_UPDATABLE)
+					.executeQuery("SELECT * FROM \"veilletechnologique\".t_tag "
+									+ "WHERE libelle like '%" + clauseWhere + "%'");
+			//Pour chaque tuple dans le résultat retourné par la bdd,
+			while(result.next())
+			{
+				//On ajoute à la liste l'Url correspondant au tuple
+				listeDeTags.add(new Tag(result.getInt("id"),
+										result.getString("libelle")));
+			}//fin while
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return listeDeTags;
+	}//fin select
 }//fin classe
