@@ -99,14 +99,28 @@ public class JPanelRechercher extends JPanel {
 		lblErreur.setBounds(30, 432, 636, 30);
 		lblErreur.setVisible(false);
 		add(lblErreur);
+		
+		tableUrls = new JTableRechercher(controlleurPrincipal.getListeUrl().selectAll());
+		
+		//On ajoute la JTableRechercher dans un JScrollPane au cas où le nombre de ligne 
+		//serait supérieur au nombre de ligne que peut afficher la table
+		scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setLocation(20, 70);
+		scrollPane.setSize(747, 350);
+		scrollPane.setVisible(false);
+		add(scrollPane);
 	}//fin JPanelRechercher
 	
 	
 	public void afficherTableDUrls(Controlleur controlleurPrincipal, String critere) throws Exception
 	{
+		//On cache le label d'erreurs au cas où il y en aurait une d'affiché
+		lblErreur.setVisible(false);
+		
 		//On initialise la table des Urls à partir du contenu de la table t_url 
 		tableUrls = new JTableRechercher(controlleurPrincipal, critere);
 		tableUrls.setBounds(55, 90, 650, 100);
+		
 		//On ajoute la JTableRechercher dans un JScrollPane au cas où le nombre de ligne 
 		//serait supérieur au nombre de ligne que peut afficher la table
 		scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);

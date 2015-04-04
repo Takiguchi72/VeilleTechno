@@ -5,9 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import classes.Tag;
-import classes.Url;
 
 public class TagDAO extends DAO<Tag> {
 	/**
@@ -132,7 +130,7 @@ public class TagDAO extends DAO<Tag> {
 							ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT * FROM \"veilletechnologique\".t_tag "
-									+ "WHERE libelle like '%" + clauseWhere + "%'");
+								+ "WHERE libelle like '%" + clauseWhere + "%'");
 			//Pour chaque tuple dans le résultat retourné par la bdd,
 			while(result.next())
 			{

@@ -26,7 +26,7 @@ public class Controlleur implements ActionListener, MouseListener {
 	private boolean isAlreadyOneClick;
 	
 	/* **********************************
-	 * C O N S T R U C T E U R S
+	 * A C C E S S E U R S
 	 * ******************************* */
 	/**
 	 * Retourne l'attribut listeUrl du Controlleur
@@ -35,6 +35,10 @@ public class Controlleur implements ActionListener, MouseListener {
 	public DAO<Url> getListeUrl() {
 		return listeUrl;
 	}//fin getListeUrl
+	
+	/* **********************************
+	 * C O N S T R U C T E U R S
+	 * ******************************* */
 
 	/**
 	 * Constructeur par défaut
@@ -54,22 +58,36 @@ public class Controlleur implements ActionListener, MouseListener {
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		((Component) e.getSource()).addMouseListener(laFenetre.getPanelRecherche().getTableUrls().getMouseListeners()[0]);
+		// B O U T O N   Q U I T T E R   -   B A R R E   D E   M E N U
 		if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitQuitter())
 		{
 			System.exit(0);
 		}//fin if
-		//Si on clique sur le boutton "Connexion" du panel de connexion
+		// B O U T O N   C O N N E X I O N   -   P A N E L   C O N N E X I O N
 		else if(e.getSource() == laFenetre.getPanelConnexion().getBtnConnexion())
 		{
 			try{
 				//On vérifie que les champs ne sont pas vides
 				ErrorManagement.checkEmptyField(laFenetre.getPanelConnexion().getTxbIdentifiant());
 				ErrorManagement.checkEmptyField(laFenetre.getPanelConnexion().getPswdField());
-				
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);
+			}//fin catch
+		}//fin else if
+		// B O U T O N   R E C H E R C H E R   -   P A N E L   R E C H E R C H E R
+		else if(e.getSource() == laFenetre.getPanelRecherche().getBtnRechercher())
+		{
+			try {
+				//On vérifie que le champ de recherche n'est pas vide
+				ErrorManagement.checkEmptyField(laFenetre.getPanelRecherche().getTxbRecherche());
+				laFenetre.getPanelRecherche().afficherTableDUrls(this, laFenetre.getPanelRecherche().getTxbRecherche().getText().toString());
+			} catch (Exception ex) {
+				//On cache le scrollPane
+				laFenetre.getPanelRecherche().getScrollPane().setVisible(false);
+				
+				//On affiche l'erreur dans le label d'erreurs
+				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), "Erreur : " + ex.getMessage(), 1);
 			}//fin catch
 		}//fin else if
 	}//fin actionPerformed
@@ -83,7 +101,6 @@ public class Controlleur implements ActionListener, MouseListener {
 		this.laFenetre = laFenetre;
 	}//fin ajouterFenetrePrincipale
 
-	
 	public void mouseEntered(MouseEvent e) {
 		
 	}
@@ -125,13 +142,13 @@ public class Controlleur implements ActionListener, MouseListener {
 		            	}
 		                isAlreadyOneClick = false;
 		            }
-		        }, 500);
+		        }, 30);
 		        
 		        Point p = e.getPoint();
                 int row = laFenetre.getPanelRecherche().getTableUrls().rowAtPoint(p);
                 if (row >= 0)
                 {
-                	System.out.println("T'as cliqué sur la " + (row + 1) + "eme PUTAIN DE LIGNE");
+                	System.out.println("T'as cliqué sur la " + (row + 1) + "eme ligne");
                 	System.out.println(laFenetre.getPanelRecherche().getTableUrls().getValueAt(row,2).toString());
                 }//fin if
 		    }//fin else
