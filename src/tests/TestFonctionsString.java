@@ -39,4 +39,19 @@ public class TestFonctionsString {
 		String chaineAttendue = "ceci;est;un;test;";
 		assertEquals("Résultat obtenu : \"" + chaineObtenue + "\"", true, chaineObtenue.equals(chaineAttendue));
 	}//fin testDecouperUneChaine
+	
+	@Test
+	public void testGetClausesWhere()
+	{
+		String resultatObtenu = getClausesWhere("test4 test2 test3");
+		String resultatAttendu = 
+				  "WHERE intitule LIKE '%test1%' OR adresse LIKE '%test1%' "
+			    + "OR createur LIKE '%test1%'"
+				+ "OR id IN (SELECT id_url FROM \"veilletechnologique\".t_ligne_url_tag "
+						+ "WHERE id_tag IN (SELECT id FROM \"veilletechnologique\".t_tag WHERE libelle LIKE '%test2%')) "
+				+ "OR id IN (SELECT id_url FROM \"veilletechnologique\".t_ligne_url_tag "
+						+ "WHERE id_tag IN (SELECT id FROM \"veilletechnologique\".t_tag WHERE libelle LIKE '%test3%')) ";
+		
+		assertEquals("Résultat obtenu : \"" + resultatObtenu + "\"", true, resultatObtenu.equals(resultatAttendu));
+	}
 }//fin classe

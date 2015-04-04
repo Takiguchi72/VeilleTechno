@@ -33,4 +33,30 @@ public class FonctionsString {
 		}//fin for
 		return resultat;
 	}//fin getListeEnString
+	
+	
+	public static String getClausesWhere(String chaine)
+	{
+		//On va découper la recherche
+		String[] tableauMots = util.FonctionsString.decouperUneChaine(chaine);
+		String clauses = "WHERE intitule LIKE '%" + tableauMots[0] + "%' OR adresse LIKE '%" + tableauMots[0] + "%' "
+					   + "OR createur LIKE '%" + tableauMots[0] + "%' "
+					   + "OR id IN (SELECT id_url "
+								 + "FROM \"veilletechnologique\".t_ligne_url_tag "
+								 + "WHERE id_tag IN (SELECT id "
+												 + "FROM \"veilletechnologique\".t_tag "
+												 + "WHERE libelle LIKE '%" + tableauMots[0] + "%')) ";
+		//Pour chaque ligne du tableau, on va ajouter des conditions dans le where de la requête
+		for(int i = 1 ; i < tableauMots.length ; i++)
+		{
+			clauses += "OR intitule LIKE '%" + tableauMots[i] + "%' OR adresse LIKE '%" + tableauMots[i] + "%' "
+					 + "OR createur LIKE '%" + tableauMots[i] + "%' "
+					 + "OR id IN (SELECT id_url "
+							   + "FROM \"veilletechnologique\".t_ligne_url_tag "
+							   + "WHERE id_tag IN (SELECT id "
+												+ "FROM \"veilletechnologique\".t_tag "
+												+ "WHERE libelle LIKE '%" + tableauMots[i] + "%')) ";
+		}
+		return clauses;
+	}
 }//fin classe

@@ -127,9 +127,9 @@ public class UrlDAO extends DAO<Url> {
 					.createStatement(
 							ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT * FROM \"veilletechnologique\".t_url "
-									+ "WHERE intitule like '%" + clauseWhere + "%' or adresse like '%" + clauseWhere + "%' "
-									+ "or createur like '%" + clauseWhere + "%'");
+					.executeQuery("SELECT * FROM \"veilletechnologique\".t_url "		//getClausesWhere() correspond à la partie de la requête
+								+ util.FonctionsString.getClausesWhere(clauseWhere)
+								+ "ORDER BY id");	//filtrant les résultats
 			//Pour chaque tuple dans le résultat retourné par la bdd,
 			while(result.next())
 			{
