@@ -1,21 +1,16 @@
 package controlleur;
 
-import java.awt.Component;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.BufferedReader;
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import vues.FenetrePrincipale;
 import classes.Url;
 import dao.DAO;
 import dao.UrlDAO;
-import vues.FenetrePrincipale;
 
 public class Controlleur implements ActionListener, MouseListener {
 	/* **********************************
@@ -117,6 +112,10 @@ public class Controlleur implements ActionListener, MouseListener {
 		
 	}
 
+	/**
+	 * Gestion des clics du logiciel
+	 * @param e - Le clic détecté [MouseEvent]
+	 */
 	public void mouseClicked(MouseEvent e) {
 		System.out.println("Début mouseClicked");
 		if(e.getSource() == laFenetre.getPanelRecherche().getTableUrls())

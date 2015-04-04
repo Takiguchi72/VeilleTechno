@@ -99,7 +99,7 @@ public class UrlDAO extends DAO<Url> {
 	{
 		List<Url> listeDUrl = new ArrayList<Url>();
 		try {
-			ResultSet result = this.connect.createStatement().executeQuery("SELECT * FROM \"veilletechnologique\".t_url ;");
+			ResultSet result = this.connect.createStatement().executeQuery("SELECT * FROM \"veilletechnologique\".t_url ORDER BY intitule;");
 			while(result.next())
 			{
 				listeDUrl.add(new Url(result.getInt("id"), result.getString("intitule"), result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur"))));
