@@ -110,7 +110,7 @@ public class JPanelRechercher extends JPanel {
 		scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setLocation(20, 70);
 		scrollPane.setSize(747, 350);
-		scrollPane.setVisible(true);
+		scrollPane.setVisible(false);
 		add(scrollPane);
 	}//fin JPanelRechercher
 	

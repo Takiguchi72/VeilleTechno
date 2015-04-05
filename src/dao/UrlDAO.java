@@ -128,8 +128,8 @@ public class UrlDAO extends DAO<Url> {
 							ResultSet.TYPE_SCROLL_INSENSITIVE,
 							ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT * FROM \"veilletechnologique\".t_url "		//getClausesWhere() correspond à la partie de la requête
-								+ util.FonctionsString.getClausesWhere(clauseWhere)
-								+ "ORDER BY id");	//filtrant les résultats
+								+ util.FonctionsString.getClausesWhere(clauseWhere)		//filtrant les résultats
+								+ "ORDER BY id");	
 			//Pour chaque tuple dans le résultat retourné par la bdd,
 			while(result.next())
 			{
