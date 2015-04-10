@@ -66,9 +66,9 @@ public class BarreDeMenu extends JMenuBar {
 		mnitConsulter.setVisible(false);
 		mnFichier.add(mnitConsulter);
 		
-		mnitConnexion = new JMenuItem("Deconnexion");
+		mnitConnexion = new JMenuItem("Connexion");
 		mnitConnexion.addActionListener(controlleurPrincipal);
-		mnitConnexion.setVisible(false);
+		mnitConnexion.setVisible(true);
 		add(mnitConnexion);
 	}//fin constructeur
 }//fin classe

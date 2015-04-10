@@ -5,8 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.Timer;
-import java.util.TimerTask;
 import vues.FenetrePrincipale;
 import classes.Url;
 import dao.DAO;
@@ -68,6 +66,13 @@ public class Controlleur implements ActionListener, MouseListener {
 		if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitQuitter())
 		{
 			System.exit(0);
+		}//fin if
+		//-----------------------------------------------------------------
+		// B O U T O N   C O N N E X I O N   -   B A R R E   D E   M E N U
+		//-----------------------------------------------------------------
+		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitConnexion())
+		{
+			
 		}//fin if
 		//---------------------------------------------------------------------
 		// B O U T O N   C O N N E X I O N   -   P A N E L   C O N N E X I O N 
