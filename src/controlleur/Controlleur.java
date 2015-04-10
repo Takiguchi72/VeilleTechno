@@ -16,7 +16,6 @@ public class Controlleur implements ActionListener, MouseListener {
 	 * ******************************* */
 	private FenetrePrincipale laFenetre;
 	private DAO<Url> listeUrl;
-	private boolean isAlreadyOneClick;
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -102,7 +101,7 @@ public class Controlleur implements ActionListener, MouseListener {
 				laFenetre.getPanelRecherche().getScrollPane().setVisible(false);
 				
 				//On affiche l'erreur dans le label d'erreurs
-				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), "Erreur : " + ex.getMessage(), 1);
+				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), ex.getMessage(), 1);
 			}//fin catch
 		}//fin else if
 	}//fin actionPerformed

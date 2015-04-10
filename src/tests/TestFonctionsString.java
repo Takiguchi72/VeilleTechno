@@ -40,6 +40,9 @@ public class TestFonctionsString {
 		assertEquals("Résultat obtenu : \"" + chaineObtenue + "\"", true, chaineObtenue.equals(chaineAttendue));
 	}//fin testDecouperUneChaine
 	
+	/**
+	 * Test unitaire de la fonction getClausesWhere
+	 */
 	@Test
 	public void testGetClausesWhere()
 	{
@@ -53,5 +56,16 @@ public class TestFonctionsString {
 						+ "WHERE id_tag IN (SELECT id FROM \"veilletechnologique\".t_tag WHERE libelle LIKE '%test3%')) ";
 		
 		assertEquals("Résultat obtenu : \"" + resultatObtenu + "\"", true, resultatObtenu.equals(resultatAttendu));
+	}
+	
+	/**
+	 * Test unitaire de la fonction md5()
+	 */
+	@Test
+	public void testMd5()
+	{
+		String resultat = "";
+		try { resultat = md5("passe"); } catch (Exception ex) { System.out.println(ex.getMessage()); }
+		assertEquals("Le résultat diffère de ce qui était attendu...", "b89f7a5ff3e3a225d572dac38b2a67f7", resultat);
 	}
 }//fin classe
