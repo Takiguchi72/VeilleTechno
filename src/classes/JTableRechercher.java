@@ -45,6 +45,9 @@ public class JTableRechercher extends JTable {
         
         //On ajoute le controlleur principal comme MouseListener
         addMouseListener(controlleurPrincipal);
+        
+        //On permet à l'utilisateur de trier le contenu en cliquant sur l'entete des colonnes
+        setAutoCreateRowSorter(true);
 	}//fin constructeur
 	
 	/* **********************************

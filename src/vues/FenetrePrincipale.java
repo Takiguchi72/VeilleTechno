@@ -18,6 +18,7 @@ public class FenetrePrincipale extends JFrame {
 	private JPanelConnexion panelConnexion;
 	private JPanel fenetreConteneur;
 	private JPanelRechercher panelRecherche;
+	private JPanelAjoutUrl panelAjout;
 	
 	
 	/* **********************************
@@ -42,14 +43,25 @@ public class FenetrePrincipale extends JFrame {
 		return panelConnexion;
 	}//fin getpanelConnexion
 	
-	/* **********************************
-	 * C O N S T R U C T E U R S
-	 * ******************************* */
-	
+	/**
+	 * Accesseur de panelRecherche
+	 * @return L'attribut panelRecherche [JPanelRecherche]
+	 */
 	public JPanelRechercher getPanelRecherche() {
 		return panelRecherche;
 	}
-
+	
+	/**
+	 * Accesseur de panelAjout
+	 * @return L'attribut panelAjout [JPanelAjoutUrl]
+	 */
+	public JPanelAjoutUrl getPanelAjout() {
+		return panelAjout;
+	}
+	
+	/* **********************************
+	 * C O N S T R U C T E U R S
+	 * ******************************* */
 	/**
 	 * Constructeur principal
 	 */
@@ -70,16 +82,25 @@ public class FenetrePrincipale extends JFrame {
 		//Ajout de la barre de menu
 		laBarreDeMenu = new BarreDeMenu(controlleurPrincipal);
 		setJMenuBar(laBarreDeMenu);
+		
 		//Ajout de la fenetre de connexion
 		panelConnexion = new JPanelConnexion(controlleurPrincipal);
 		panelConnexion.setBounds(0, 28, 795, 540);
 		panelConnexion.setVisible(false);
 		fenetreConteneur.add(panelConnexion);
+		
 		//Ajout de la fenetre de recherche
 		panelRecherche = new JPanelRechercher(controlleurPrincipal);
 		panelRecherche.setBounds(0, 28, 795, 540);
 		panelRecherche.setVisible(true);
 		fenetreConteneur.add(panelRecherche);
+		
+		//Ajout de la fenetre d'ajout de marque page
+		panelAjout = new JPanelAjoutUrl(controlleurPrincipal);
+		panelAjout.setBounds(0, 28, 795, 540);
+		panelAjout.setVisible(false);
+		fenetreConteneur.add(panelAjout);
+		
 		
 		setVisible(true);
 	}//fin constructeur

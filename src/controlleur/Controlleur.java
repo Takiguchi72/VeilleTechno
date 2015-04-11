@@ -100,6 +100,26 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
 			afficherOuCacherPanelConnexion(false);
 		}//fin else if
+		//---------------------------------------------------------------------------
+		// B O U T O N   S E   D É C O N N E C T E R   -   B A R R E   D E   M E N U 
+		//---------------------------------------------------------------------------
+		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPDeconnexion())
+		{
+			//On cache le menu pour gérer son espace personnel
+			laFenetre.getLaBarreDeMenu().getMnEspacePersonnel().setVisible(false);
+
+			//On affiche le bouton de connexion
+			laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(true);
+
+		}//fin else if
+		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPAjouter())
+		{
+			//On cache le panel de recherches
+			laFenetre.getPanelRecherche().setVisible(false);
+			
+			//On affiche le panel d'ajout
+			laFenetre.getPanelAjout().setVisible(true);
+		}//fin else if
 		//---------------------------------------------------------------------
 		// B O U T O N   C O N N E X I O N   -   P A N E L   C O N N E X I O N 
 		//---------------------------------------------------------------------
@@ -125,18 +145,6 @@ public class Controlleur implements ActionListener, MouseListener {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);
 			}//fin catch
-		}//fin else if
-		//---------------------------------------------------------------------------
-		// B O U T O N   S E   D É C O N N E C T E R   -   B A R R E   D E   M E N U 
-		//---------------------------------------------------------------------------
-		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPDeconnexion())
-		{
-			//On cache le menu pour gérer son espace personnel
-			laFenetre.getLaBarreDeMenu().getMnEspacePersonnel().setVisible(false);
-			
-			//On affiche le bouton de connexion
-			laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(true);
-			
 		}//fin else if
 		//-------------------------------------------------------------------------
 		// B O U T O N   R E C H E R C H E R   -   P A N E L   R E C H E R C H E R
