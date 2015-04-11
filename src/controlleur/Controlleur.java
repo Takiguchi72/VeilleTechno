@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import vues.FenetrePrincipale;
+import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
 import dao.DAO;
@@ -21,6 +22,7 @@ public class Controlleur implements ActionListener, MouseListener {
 	 * ******************************* */
 	private FenetrePrincipale laFenetre;
 	private DAO<Url> listeUrl;
+	private DAO<Tag> listeTag;
 	private UtilisateurDAO lesUtilisateurs;
 	private Utilisateur utilisateurConnecte;
 	
@@ -34,11 +36,18 @@ public class Controlleur implements ActionListener, MouseListener {
 	public DAO<Url> getListeUrl() {
 		return listeUrl;
 	}//fin getListeUrl
+
+	/**
+	 * Retourne l'attribut listeTag du Controlleur
+	 * @return L'attribut listeTag [DAO<Tag>]
+	 */
+	public DAO<Tag> getListeTag() {
+		return listeTag;
+	}
 	
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
-
 	/**
 	 * Constructeur par défaut
 	 */

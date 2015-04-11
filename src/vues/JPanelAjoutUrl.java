@@ -8,6 +8,8 @@ import javax.swing.SwingConstants;
 import controlleur.Controlleur;
 import java.awt.Color;
 import java.awt.Font;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class JPanelAjoutUrl extends JPanel{
 	
@@ -21,6 +23,7 @@ public class JPanelAjoutUrl extends JPanel{
 	private JButton btnSupprimer;
 	private JButton btnEnregistrer;
 	private JLabel lblErreur;
+	private JTable table;
 	
 	
 	/* **********************************
@@ -94,47 +97,47 @@ public class JPanelAjoutUrl extends JPanel{
 	{
 		setLayout(null);
 		
-		JLabel lblUrl = new JLabel("URL :");
-		lblUrl.setBounds(45, 62, 50, 15);
-		add(lblUrl);
-		
-		txbUrl = new JTextField();
-		txbUrl.setBounds(125, 60, 380, 19);
-		add(txbUrl);
-		txbUrl.setColumns(10);
-		
 		JLabel lblIntitule = new JLabel("Intitulé :");
-		lblIntitule.setBounds(45, 92, 70, 15);
+		lblIntitule.setBounds(45, 62, 70, 15);
 		add(lblIntitule);
 		
 		txbIntitule = new JTextField();
-		txbIntitule.setBounds(125, 90, 380, 19);
+		txbIntitule.setBounds(150, 60, 380, 19);
 		add(txbIntitule);
 		txbIntitule.setColumns(10);
 		
-		JLabel lblTags = new JLabel("Tags :");
+		JLabel lblUrl = new JLabel("Adresse URL :");
+		lblUrl.setBounds(45, 92, 110, 15);
+		add(lblUrl);
+		
+		txbUrl = new JTextField();
+		txbUrl.setBounds(150, 90, 380, 19);
+		add(txbUrl);
+		txbUrl.setColumns(10);
+		
+		JLabel lblTags = new JLabel("Tag :");
 		lblTags.setOpaque(true);
-		lblTags.setBounds(45, 122, 70, 15);
+		lblTags.setBounds(110, 142, 40, 15);
 		add(lblTags);
 		
 		txbTags = new JTextField();
-		txbTags.setBounds(125, 120, 120, 19);
+		txbTags.setBounds(155, 140, 181, 19);
 		add(txbTags);
 		txbTags.setColumns(10);
 	
 		
 		btnAjouter = new JButton("Ajouter");
-		btnAjouter.setBounds(257, 120, 100, 19);
+		btnAjouter.setBounds(350, 140, 100, 19);
 		btnAjouter.addActionListener(controlleurPrincipal);
 		add(btnAjouter);
 		
 		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBounds(522, 224, 110, 19);
+		btnSupprimer.setBounds(619, 251, 110, 19);
 		btnSupprimer.addActionListener(controlleurPrincipal);
 		add(btnSupprimer);
 		
 		btnEnregistrer = new JButton("Enregistrer");
-		btnEnregistrer.setBounds(480, 357, 120, 25);
+		btnEnregistrer.setBounds(500, 420, 125, 25);
 		btnEnregistrer.addActionListener(controlleurPrincipal);
 		add(btnEnregistrer);
 		
@@ -142,8 +145,13 @@ public class JPanelAjoutUrl extends JPanel{
 		lblErreur.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblErreur.setForeground(Color.RED);
 		lblErreur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblErreur.setBounds(72, 394, 636, 30);
+		lblErreur.setBounds(79, 447, 636, 30);
 		lblErreur.setVisible(false);
 		add(lblErreur);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(100, 190, 370, 200);
+		add(scrollPane);
+		
 	}
 }
