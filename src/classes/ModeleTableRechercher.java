@@ -14,13 +14,18 @@ public class ModeleTableRechercher extends AbstractTableModel {
 	private List<Url> listeUrls = new ArrayList<Url>();
 	private final String[] entetes = { "Id", "Intitulé", "Adresse", "Créateur" };
 	
+	/* **********************************
+	 * C O N S T R U C T E U R S
+	 * ******************************* */
 	public ModeleTableRechercher(Controlleur controlleurPrincipal)
 	{
 		super();
 		listeUrls = controlleurPrincipal.getListeUrl().selectAll();
-		
-	}
+	}//fin constructeur
 	
+	/* **********************************
+	 * M E T H O D E S
+	 * ******************************* */
 	/**
 	 * Retourne le nombre de colonnes du modèle
 	 * @return Nombre de colonnes [int]
@@ -47,6 +52,10 @@ public class ModeleTableRechercher extends AbstractTableModel {
 		return entetes[index];
 	}
 
+	/**
+	 * Retourne l'attribut d'une Url en fonction de ses indexs dans la table
+	 * @return L'attribut de l'Url [Object]
+	 */
 	@Override
 	public Object getValueAt(int indexLigne, int indexColonne) {
 		//En fonction du numéro de colonne choisi, on va retourner l'attribut de l'url correspondant
@@ -63,7 +72,12 @@ public class ModeleTableRechercher extends AbstractTableModel {
 		}//fin switch
 	}//fin getValueAt
 	
-	
+	/**
+	 * Réinitialise la liste d'Urls en fonction des critères de recherche passées en paramètre via la variable "recherche"
+	 * @param controlleurPrincipal
+	 * @param recherche
+	 * @throws SQLException
+	 */
 	public void updateUrlEnFonctionDeLaRecherche(Controlleur controlleurPrincipal, String recherche) throws Exception
 	{
 		//On vide la liste d'url,
