@@ -5,9 +5,13 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
+
+import classes.ModeleTableAjout;
 import controlleur.Controlleur;
+
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -18,12 +22,13 @@ public class JPanelAjoutUrl extends JPanel{
 	 * ******************************* */
 	private JTextField txbUrl;
 	private JTextField txbIntitule;
-	private JTextField txbTags;
+	private JTextField txbTag;
 	private JButton btnAjouter;
 	private JButton btnSupprimer;
 	private JButton btnEnregistrer;
 	private JLabel lblErreur;
-	private JTable table;
+	private ModeleTableAjout leModele = new ModeleTableAjout();
+	private JTable tableTags;
 	
 	
 	/* **********************************
@@ -50,8 +55,8 @@ public class JPanelAjoutUrl extends JPanel{
 	 * Retourne l'attribut txbTags 
 	 * @return L'attribut txbTags [JTextField]  
 	 */
-	public JTextField getTxbTags() {
-		return txbTags;
+	public JTextField getTxbTag() {
+		return txbTag;
 	}// fin getTxbTags
     
 	/**
@@ -86,10 +91,21 @@ public class JPanelAjoutUrl extends JPanel{
 		return lblErreur;
 	}// fin getlblErreur 
 	
-	/*
-	 * C O N S T R U C T E U R
+	/**
+	 * Retourne l'attribut leModele
+	 * @return L'attribut leModele [ModeleTableAjout]
 	 */
+	public ModeleTableAjout getLeModele() {
+		return leModele;
+	}
 
+	public JTable getTableTags() {
+		return tableTags;
+	}
+
+	/* **********************************
+	 * C O N S T R U C T E U R S
+	 * ******************************* */
 	/**
 	 * Instancie un objet de la classe JPanelAjoutUrl
 	 */
@@ -120,10 +136,10 @@ public class JPanelAjoutUrl extends JPanel{
 		lblTags.setBounds(80, 162, 40, 15);
 		add(lblTags);
 		
-		txbTags = new JTextField();
-		txbTags.setBounds(120, 160, 181, 19);
-		add(txbTags);
-		txbTags.setColumns(10);
+		txbTag = new JTextField();
+		txbTag.setBounds(120, 160, 181, 19);
+		add(txbTag);
+		txbTag.setColumns(10);
 	
 		
 		btnAjouter = new JButton("Ajouter");
@@ -157,7 +173,9 @@ public class JPanelAjoutUrl extends JPanel{
 		lblErreur.setVisible(false);
 		add(lblErreur);
 		
-		JScrollPane scrollPane = new JScrollPane();
+		tableTags = new JTable(leModele);
+		
+		JScrollPane scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(340, 150, 370, 230);
 		add(scrollPane);
 		

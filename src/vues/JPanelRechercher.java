@@ -119,7 +119,7 @@ public class JPanelRechercher extends JPanel {
 		
 		//Ajout de la JTableRechercher dans un JScrollPane au cas où le nombre de ligne 
 		//serait supérieur au nombre de ligne que peut afficher la table
-		scrollPane = new javax.swing.JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane = new JScrollPane(tableUrls, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setLocation(20, 70);
 		scrollPane.setSize(747, 350);
 		scrollPane.setVisible(false);

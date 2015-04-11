@@ -168,6 +168,32 @@ public class Controlleur implements ActionListener, MouseListener {
 				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), ex.getMessage(), 1);
 			}//fin catch
 		}//fin else if
+		//-----------------------------------------------------------------
+		// B O U T O N   A J O U T E R   -   P A N E L   A J O U T   U R L
+		//-----------------------------------------------------------------
+		else if(e.getSource() == laFenetre.getPanelAjout().getBtnAjouter())
+		{
+			try {
+				//On vérifie que le champ Tag n'est pas vide
+				ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbTag());
+				
+				laFenetre.getPanelAjout().getLeModele().ajouterTag(new Tag(0,laFenetre.getPanelAjout().getTxbTag().getText()));
+			} catch (Exception ex) {
+				//On affiche l'erreur dans le label d'erreurs
+				ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
+			}//fin catch
+		}//fin else if
+		//---------------------------------------------------------------------
+		// B O U T O N   S U P P R I M E R   -   P A N E L   A J O U T   U R L
+		//---------------------------------------------------------------------
+		else if(e.getSource() == laFenetre.getPanelAjout().getBtnSupprimer())
+		{
+			int[] selection = laFenetre.getPanelAjout().getTableTags().getSelectedRows();
+			
+            for(int i = selection.length - 1; i >= 0; i--){
+            	laFenetre.getPanelAjout().getLeModele().supprimerTag(selection[i]);
+            }
+		}
 	}//fin actionPerformed
 	
 	/**
