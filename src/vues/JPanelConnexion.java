@@ -98,7 +98,7 @@ public class JPanelConnexion extends JPanel{
 		add(pswdField);
 		
 		btnConnexion = new JButton("Connexion");
-		btnConnexion.setBounds(442, 247, 140, 30);
+		btnConnexion.setBounds(470, 250, 110, 22);
 		btnConnexion.addActionListener(controlleurPrincipal);
 		add(btnConnexion);
 		

@@ -50,7 +50,7 @@ public class UtilisateurDAO  {
 										ResultSet.CONCUR_UPDATABLE)
 								.executeQuery("SELECT * FROM \"veilletechnologique\".t_users WHERE identifiant = '" + identifiant + "';");
 			if(result.first())
-				user = new Utilisateur(identifiant, result.getString("email"));
+				user = new Utilisateur(identifiant, result.getString("email"), result.getString("passwd"));
 			
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -106,7 +106,7 @@ public class UtilisateurDAO  {
 			ResultSet result = this.connect.createStatement().executeQuery("SELECT * FROM \"veilletechnologique\".t_users ;");
 			while(result.next())
 			{
-				listeDUtilisateurs.add(new Utilisateur(result.getString("identifiant"), result.getString("email")));
+				listeDUtilisateurs.add(new Utilisateur(result.getString("identifiant"), result.getString("email"), result.getString("passwd")));
 			}//fin while
 		} catch (SQLException ex) {
 			ex.printStackTrace();

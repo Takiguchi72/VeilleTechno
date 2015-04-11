@@ -6,7 +6,6 @@ import controlleur.Controlleur;
 public class PointDEntree {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		try {
 			Controlleur controlleurPrincipal = new Controlleur();
 			FenetrePrincipale fenetrePrincipale = new FenetrePrincipale(controlleurPrincipal);

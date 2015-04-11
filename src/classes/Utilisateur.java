@@ -9,6 +9,7 @@ public class Utilisateur {
 	 * ******************************* */
 	private String identifiant;
 	private String email;
+	private String passwd;
 	private List<Url> listeUrls;
 	
 	/* **********************************
@@ -47,6 +48,22 @@ public class Utilisateur {
 	}
 	
 	/**
+	 * Retourne le mot de passe de l'utilisateur
+	 * @return Le mot de passe de l'utilisateur [String]=>[Hashage md5]
+	 */
+	public String getPasswd() {
+		return passwd;
+	}
+
+	/**
+	 * Modifie la veleur passwd de l'utilisateur à partir du paramètre
+	 * @param Le nouveau mot de passe [String]=>[Hashage md5]
+	 */
+	public void setPasswd(String passwd) {
+		this.passwd = passwd;
+	}
+
+	/**
 	 * Retourne la liste des Urls qu'a créé l'utilisateur
 	 * @return La liste des Urls qu'a créé l'utilisateur [List<Url>]
 	 */
@@ -61,14 +78,16 @@ public class Utilisateur {
 	{
 		identifiant = "";
 		email 		= "";
+		passwd		= "";
 		listeUrls	= new ArrayList<Url>();
 	}//fin Utilisateur()
 	
 	
-	public Utilisateur(String identifiant, String email)
+	public Utilisateur(String identifiant, String email, String passwd)
 	{
 		this.identifiant = identifiant;
 		this.email 		 = email;
+		this.passwd		 = passwd;
 		listeUrls 		 = new ArrayList<Url>();
 	}//fin Utilisateur(...)
 	
