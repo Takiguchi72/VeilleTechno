@@ -2,6 +2,7 @@ package vues;
 
 import java.awt.Color;
 import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -9,7 +10,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import classes.JTableRechercher;
+import classes.ModeleTableRechercher;
 import controlleur.Controlleur;
 
 public class JPanelRechercher extends JPanel {
@@ -21,6 +24,7 @@ public class JPanelRechercher extends JPanel {
 	private JButton btnRechercher;
 	private JScrollPane scrollPane;
 	private JLabel lblErreur;
+	private ModeleTableRechercher leModele = new ModeleTableRechercher();
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -65,6 +69,14 @@ public class JPanelRechercher extends JPanel {
 		return lblErreur;
 	}
 	
+	/**
+	 * Retourne l'attribut leModele
+	 * @return L'attribut leModele [ModeleTableRechercher]
+	 */
+	public ModeleTableRechercher getLeModele() {
+		return leModele;
+	}
+	
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
@@ -103,7 +115,7 @@ public class JPanelRechercher extends JPanel {
 		add(lblErreur);
 		
 		//Initialisation du tableau qui contiendra le résultat de la recherche
-		tableUrls = new JTableRechercher(controlleurPrincipal);
+		tableUrls = new JTableRechercher(leModele, controlleurPrincipal);
 		
 		//Ajout de la JTableRechercher dans un JScrollPane au cas où le nombre de ligne 
 		//serait supérieur au nombre de ligne que peut afficher la table
@@ -113,22 +125,4 @@ public class JPanelRechercher extends JPanel {
 		scrollPane.setVisible(false);
 		add(scrollPane);
 	}//fin JPanelRechercher
-	
-	/* **********************************
-	 * M E T H O D E S
-	 * ******************************* */
-	/**
-	 * Affiche le tableau après l'avoir mit à jour via la BDD selon les criteres de selection passés par paramètre
-	 * @param Le controlleur principal pour pouvoir récupérer les données de la BDD [Controlleur]
-	 * @param Une chaine contenant les criteres de selection des Urls [String]
-	 * @throws Lève une exception lorsqu'il est impossible de récupérer les données de la base [SQLException]
-	 */
-	public void afficherTableDUrls(Controlleur controlleurPrincipal, String recherche) throws Exception
-	{
-		//On cache le label d'erreurs au cas où il y en aurait une d'affiché
-		lblErreur.setVisible(false);
-		//On met à jour le tableau en fonction des critères passés en paramètres
-		tableUrls.updateTable(controlleurPrincipal, recherche);
-		scrollPane.setVisible(true);
-	}//fin afficherTableDUrls
 }//fin classe

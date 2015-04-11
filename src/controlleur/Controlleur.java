@@ -1,11 +1,13 @@
 package controlleur;
 
-import java.awt.Color;
+import static util.FonctionsString.md5;
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 import vues.FenetrePrincipale;
 import classes.Tag;
@@ -14,7 +16,6 @@ import classes.Utilisateur;
 import dao.DAO;
 import dao.UrlDAO;
 import dao.UtilisateurDAO;
-import static util.FonctionsString.md5;
 
 public class Controlleur implements ActionListener, MouseListener {
 	/* **********************************
@@ -151,14 +152,18 @@ public class Controlleur implements ActionListener, MouseListener {
 		//-------------------------------------------------------------------------
 		else if(e.getSource() == laFenetre.getPanelRecherche().getBtnRechercher())
 		{
+			laFenetre.getPanelRecherche().getLblErreur().setVisible(false);
+			laFenetre.getPanelRecherche().getLblErreur().setText("");
 			try {
 				//On vérifie que le champ de recherche n'est pas vide
 				ErrorManagement.checkEmptyField(laFenetre.getPanelRecherche().getTxbRecherche());
-				laFenetre.getPanelRecherche().afficherTableDUrls(this, laFenetre.getPanelRecherche().getTxbRecherche().getText().toString());
+				
+				//On met à jour la liste d'Urls en fonction de la recherche				
+				laFenetre.getPanelRecherche().getLeModele().updateUrlsEnFonctionDeLaRecherche(listeUrl.selectCorrespondantA(laFenetre.getPanelRecherche().getTxbRecherche().getText()));
+				laFenetre.getPanelRecherche().getScrollPane().setVisible(true);
 			} catch (Exception ex) {
 				//On cache le scrollPane
 				laFenetre.getPanelRecherche().getScrollPane().setVisible(false);
-				
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), ex.getMessage(), 1);
 			}//fin catch
@@ -219,6 +224,7 @@ public class Controlleur implements ActionListener, MouseListener {
 			laFenetre.getPanelConnexion().getTxbIdentifiant().setText(null);
 			laFenetre.getPanelConnexion().getPswdField().setText(null);
 		}//fin if
+		
 		laFenetre.getPanelConnexion().setVisible(valeur);
 		laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(!valeur);
 		laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(valeur);

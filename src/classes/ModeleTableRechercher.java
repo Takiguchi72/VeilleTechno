@@ -2,25 +2,33 @@ package classes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
-
-import controlleur.Controlleur;
 
 public class ModeleTableRechercher extends AbstractTableModel {
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
-	private List<Url> listeUrls = new ArrayList<Url>();
+	private List<Url> listeUrls;
 	private final String[] entetes = { "Id", "Intitulé", "Adresse", "Créateur" };
 	
+	public List<Url> getListeUrls() {
+		return listeUrls;
+	}
+
+	public void setListeUrls(List<Url> listeUrls) {
+		this.listeUrls = listeUrls;
+	}
+
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
-	public ModeleTableRechercher(Controlleur controlleurPrincipal)
+	/**
+	 * Constructeur par défaut
+	 */
+	public ModeleTableRechercher()
 	{
 		super();
-		listeUrls = controlleurPrincipal.getListeUrl().selectAll();
+		listeUrls = new ArrayList<Url>();
 	}//fin constructeur
 	
 	/* **********************************
@@ -68,9 +76,21 @@ public class ModeleTableRechercher extends AbstractTableModel {
 			case 2:
 				return listeUrls.get(indexLigne).getAdresse();
 			default:
-				return listeUrls.get(indexLigne).getCreateur();
+				return listeUrls.get(indexLigne).getCreateur().getIdentifiant();
 		}//fin switch
 	}//fin getValueAt
+	
+	/**
+	 * Supprime tous les éléments de la liste
+	 */
+	private void removeAll()
+	{
+		//On supprime chaque élément de la liste
+		for(int i = 0 ; i < listeUrls.size() ; i++)
+		{
+			listeUrls.remove(i);
+		}//fin for
+	}//fin removeAll
 	
 	/**
 	 * Réinitialise la liste d'Urls en fonction des critères de recherche passées en paramètre via la variable "recherche"
@@ -78,12 +98,15 @@ public class ModeleTableRechercher extends AbstractTableModel {
 	 * @param recherche
 	 * @throws SQLException
 	 */
-	public void updateUrlEnFonctionDeLaRecherche(Controlleur controlleurPrincipal, String recherche) throws Exception
+	public void updateUrlsEnFonctionDeLaRecherche(List<Url> nouvelleListe)
 	{
-		//On vide la liste d'url,
-		listeUrls.removeAll(listeUrls);
+		//On vide la liste d'url
+		removeAll();
 		
-		//On la "rempli" à partir du résultat de la requete en fonction du critère de sélection
-		listeUrls = controlleurPrincipal.getListeUrl().selectCorrespondantA(recherche);
+		//Puis on la "remplit" à partir de la nouvelle liste
+		listeUrls = nouvelleListe;
+		
+		//Enfin, on met à jour la vue
+		fireTableStructureChanged();
 	}//fin updateUrlEnFonctionDeLaRecherche
 }//fin classe
