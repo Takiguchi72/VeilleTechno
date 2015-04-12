@@ -177,7 +177,11 @@ public class Controlleur implements ActionListener, MouseListener {
 				//On vérifie que le champ Tag n'est pas vide
 				ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbTag());
 				
+				//On ajoute le tag au tableau du panel ajouter
 				laFenetre.getPanelAjout().getLeModele().ajouterTag(new Tag(0,laFenetre.getPanelAjout().getTxbTag().getText()));
+				
+				//On vide puis on place le focus à nouveau dans la zone de saisies pour ajouter un tag
+				ErrorManagement.clearAndFocusField(laFenetre.getPanelAjout().getTxbTag());
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
@@ -188,12 +192,23 @@ public class Controlleur implements ActionListener, MouseListener {
 		//---------------------------------------------------------------------
 		else if(e.getSource() == laFenetre.getPanelAjout().getBtnSupprimer())
 		{
+			//On récupère les index des tags qui sont sélectionnés
 			int[] selection = laFenetre.getPanelAjout().getTableTags().getSelectedRows();
 			
-            for(int i = selection.length - 1; i >= 0; i--){
-            	laFenetre.getPanelAjout().getLeModele().supprimerTag(selection[i]);
-            }
-		}
+			//Si la selection est supérieure à 0 on supprime les tags du tableau
+			if(selection.length > 0)
+			{
+				for(int i = selection.length - 1; i >= 0; i--)
+				{
+					laFenetre.getPanelAjout().getLeModele().supprimerTag(selection[i]);
+				}//fin for
+			}//fin if
+			//Sinon on affiche une erreur
+			else
+			{
+				ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Veuillez sélectionner au moins un tag !", 2);
+			}//fin else
+		}//fin else if
 	}//fin actionPerformed
 	
 	/**
@@ -244,19 +259,21 @@ public class Controlleur implements ActionListener, MouseListener {
 	 */
 	private void afficherOuCacherPanelConnexion(boolean valeur)
 	{
-		//Si on cache le pannel de connexion, on va réinitialiser ses attributs
-		if(valeur == false)
-		{
-			laFenetre.getPanelConnexion().getTxbIdentifiant().setText(null);
-			laFenetre.getPanelConnexion().getPswdField().setText(null);
-		}//fin if
-		
 		laFenetre.getPanelConnexion().setVisible(valeur);
 		laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(!valeur);
 		laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(valeur);
 		laFenetre.getPanelRecherche().setVisible(!valeur);
 		laFenetre.getPanelRecherche().getLblErreur().setVisible(false);
 		laFenetre.getPanelConnexion().getLblErreur().setVisible(false);
+		
+		//Si on cache le pannel de connexion, on va réinitialiser ses attributs
+		if(valeur == false)
+		{
+			laFenetre.getPanelConnexion().getTxbIdentifiant().setText(null);
+			laFenetre.getPanelConnexion().getPswdField().setText(null);
+			//On place le focus dans la barre de recherches
+			laFenetre.getPanelRecherche().getTxbRecherche().requestFocus();
+		}//fin if
 	}//fin afficherOuCacherPanelConnexion
 	
 	/**

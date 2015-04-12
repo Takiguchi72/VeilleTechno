@@ -98,7 +98,11 @@ public class JPanelAjoutUrl extends JPanel{
 	public ModeleTableAjout getLeModele() {
 		return leModele;
 	}
-
+	
+	/**
+	 * Retourne l'attribut tableTags
+	 * @return L'attribut tableTags [JTable]
+	 */
 	public JTable getTableTags() {
 		return tableTags;
 	}
@@ -119,8 +123,8 @@ public class JPanelAjoutUrl extends JPanel{
 		
 		txbIntitule = new JTextField();
 		txbIntitule.setBounds(150, 60, 380, 19);
+		txbIntitule.setName("Intitulé");
 		add(txbIntitule);
-		txbIntitule.setColumns(10);
 		
 		JLabel lblUrl = new JLabel("Adresse URL :");
 		lblUrl.setBounds(45, 92, 110, 15);
@@ -128,8 +132,8 @@ public class JPanelAjoutUrl extends JPanel{
 		
 		txbUrl = new JTextField();
 		txbUrl.setBounds(150, 90, 380, 19);
+		txbUrl.setName("Adresse URL");
 		add(txbUrl);
-		txbUrl.setColumns(10);
 		
 		JLabel lblTags = new JLabel("Tag :");
 		lblTags.setOpaque(true);
@@ -138,18 +142,13 @@ public class JPanelAjoutUrl extends JPanel{
 		
 		txbTag = new JTextField();
 		txbTag.setBounds(120, 160, 181, 19);
+		txbTag.setName("Tag");
 		add(txbTag);
-		txbTag.setColumns(10);
-	
 		
 		btnAjouter = new JButton("Ajouter");
 		btnAjouter.setBounds(190, 190, 100, 19);
 		btnAjouter.addActionListener(controlleurPrincipal);
 		add(btnAjouter);
-		
-		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBounds(180, 288, 110, 19);
-		btnSupprimer.addActionListener(controlleurPrincipal);
 		
 		JLabel lblSelectUnTag = new JLabel("Sélectionnez un tag,");
 		lblSelectUnTag.setBounds(60, 260, 175, 15);
@@ -158,7 +157,15 @@ public class JPanelAjoutUrl extends JPanel{
 		JLabel lblCliquerIci = new JLabel("puis cliquez ici :");
 		lblCliquerIci.setBounds(60, 290, 118, 15);
 		add(lblCliquerIci);
+		
+		btnSupprimer = new JButton("Supprimer");
+		btnSupprimer.setBounds(180, 288, 110, 19);
+		btnSupprimer.addActionListener(controlleurPrincipal);
 		add(btnSupprimer);
+		
+		JLabel lblPourLeSuppr = new JLabel("pour le supprimer de la liste");
+		lblPourLeSuppr.setBounds(60, 320, 205, 15);
+		add(lblPourLeSuppr);
 		
 		btnEnregistrer = new JButton("Enregistrer");
 		btnEnregistrer.setBounds(470, 400, 125, 25);
@@ -173,15 +180,12 @@ public class JPanelAjoutUrl extends JPanel{
 		lblErreur.setVisible(false);
 		add(lblErreur);
 		
+		
+		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
 		tableTags = new JTable(leModele);
 		
 		JScrollPane scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(340, 150, 370, 230);
 		add(scrollPane);
-		
-		JLabel lblPourLeSuppr = new JLabel("pour le supprimer de la liste");
-		lblPourLeSuppr.setBounds(60, 320, 205, 15);
-		add(lblPourLeSuppr);
-		
-	}
-}
+	}//fin constructeur
+}//fin classe
