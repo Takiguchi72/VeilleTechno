@@ -11,6 +11,7 @@
 --CREATE SCHEMA veilletechnologique
 --  AUTHORIZATION "f.thierry";
 
+
 -- Sélection du shéma
 SET SCHEMA 'veilletechnologique';
 
@@ -24,7 +25,7 @@ create table t_users(
 
 -- Création de la table t_url
 create table t_url(
-	id integer not null,
+	id serial,
 	intitule varchar(100),
 	adresse varchar(500) not null,
 	createur varchar(30),
@@ -34,15 +35,15 @@ create table t_url(
 
 -- Création de la table t_tag
 create table t_tag(
-	id integer not null,
+	id serial,
 	libelle varchar(150) not null,
 	constraint pk_t_tag primary key (id)
 );
 
 -- Création de la table t_ligne_url_tag
 create table t_ligne_url_tag(
-	id_url integer not null,
-	id_tag integer not null,
+	id_url serial,
+	id_tag serial,
 	constraint pk_t_ligne_url_tag primary key (id_url,id_tag),
 	constraint fk_t_ligne_url_tag_t_url foreign key (id_url) references t_url (id),
 	constraint fk_t_ligne_url_tag_t_tag foreign key (id_tag) references t_tag (id)

@@ -17,10 +17,9 @@ public class TagDAO extends DAO<Tag> {
 	{
 		try {
 			//On prépare la requête d'insertion
-			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_tag (id, libelle) VALUES (?, ?) ;");
+			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_tag (libelle) VALUES (?) ;");
 			//On assigne des valeurs à la requête préparée
-			prepare.setInt(1,obj.getId());
-			prepare.setString(2, obj.getLibelle());
+			prepare.setString(1, obj.getLibelle());
 			//On exécute la requête
 			prepare.executeUpdate();
 			obj = this.read(obj.getId());
@@ -51,6 +50,33 @@ public class TagDAO extends DAO<Tag> {
 			if(result.first())
 				leTag = new Tag(id, result.getString("libelle"));
 		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return leTag;
+	}//fin read
+	
+	public Tag read(String libelle)
+	{
+		//On créer un tag "vide"
+		Tag leTag = new Tag();
+		
+		try {
+			//On prépare la requête
+			PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE libelle=?;");
+			
+			//On assigne des valeurs à la requête préparée
+			prepare.setString(1, libelle);
+			
+			//On exécute la requête
+			ResultSet result = prepare.executeQuery();
+			
+			//S'il y a un résultat, on va remplacer les valeurs du tag vide par celles du résultat
+			if(result.first())
+			{
+				leTag.setId(result.getInt("id"));
+				leTag.setLibelle(libelle);
+			}//fin if
+		} catch ( SQLException ex) {
 			ex.printStackTrace();
 		}//fin catch
 		return leTag;

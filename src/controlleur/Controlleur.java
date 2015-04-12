@@ -63,47 +63,42 @@ public class Controlleur implements ActionListener, MouseListener {
 	/* **********************************
 	 * M E T H O D E S
 	 * ******************************* */
-	/**
-	 * Permet de définir la fenetre principale du controlleur principal
-	 * @param laFenetre - La fenetre principal à définir [FenetrePrincipale]
-	 */
-	public void ajouterFenetrePrincipale(FenetrePrincipale laFenetre)
-	{
-		this.laFenetre = laFenetre;
-	}//fin ajouterFenetrePrincipale
 	
+	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
+	 * Méthodes liées à la gestion d'évènements classiques *
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 	/**
 	 * Gestion des évènements du logiciel
 	 * @param e - L'évenement détecté [ActionEvent]
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
-		//-------------------------------------------------------------
-		// B O U T O N   Q U I T T E R   -   B A R R E   D E   M E N U
-		//-------------------------------------------------------------
+		//--------------------------------//
+		// Bouton QUITTER - Barre de Menu //
+		//--------------------------------//
 		if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitQuitter())
 		{
 			System.exit(0);
 		}//fin if
-		//-----------------------------------------------------------------
-		// B O U T O N   C O N N E X I O N   -   B A R R E   D E   M E N U
-		//-----------------------------------------------------------------
+		//----------------------------------//
+		// Bouton CONNEXION - Barre de Menu //
+		//----------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitConnexion())
 		{
 			//On affiche le pannel de connexion
 			afficherOuCacherPanelConnexion(true);
 		}//fin else if
-		//-----------------------------------------------------------------
-		// B O U T O N   C O N S U L T E R   -   B A R R E   D E   M E N U
-		//-----------------------------------------------------------------
+		//----------------------------------//
+		// Bouton CONSULTER - Barre de Menu //
+		//----------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitConsulter())
 		{
 			//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
 			afficherOuCacherPanelConnexion(false);
 		}//fin else if
-		//---------------------------------------------------------------------------
-		// B O U T O N   S E   D É C O N N E C T E R   -   B A R R E   D E   M E N U 
-		//---------------------------------------------------------------------------
+		//---------------------------------------// 
+		// Bouton SE DÉCONNECTER - Barre de Menu //
+		//---------------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPDeconnexion())
 		{
 			//On cache le menu pour gérer son espace personnel
@@ -112,7 +107,12 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On affiche le bouton de connexion
 			laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(true);
 
+			//On réinitialise l'utilisateur
+			utilisateurConnecte = new Utilisateur();
 		}//fin else if
+		//-------------------------------------------------//
+		// Bouton AJOUTER DES MARQUES-PAGE - Barre de Menu //
+		//-------------------------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPAjouter())
 		{
 			//On cache le panel de recherches
@@ -121,9 +121,9 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On affiche le panel d'ajout
 			laFenetre.getPanelAjout().setVisible(true);
 		}//fin else if
-		//---------------------------------------------------------------------
-		// B O U T O N   C O N N E X I O N   -   P A N E L   C O N N E X I O N 
-		//---------------------------------------------------------------------
+		//------------------------------------//
+		// Bouton CONNEXION - Panel CONNEXION //
+		//------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelConnexion().getBtnConnexion())
 		{
 			try{
@@ -145,11 +145,13 @@ public class Controlleur implements ActionListener, MouseListener {
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);
+				ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getPswdField());
+				ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getTxbIdentifiant());
 			}//fin catch
 		}//fin else if
-		//-------------------------------------------------------------------------
-		// B O U T O N   R E C H E R C H E R   -   P A N E L   R E C H E R C H E R
-		//-------------------------------------------------------------------------
+		//--------------------------------------//
+		// Bouton RECHERCHER - Panel RECHERCHER //
+		//--------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelRecherche().getBtnRechercher())
 		{
 			laFenetre.getPanelRecherche().getLblErreur().setVisible(false);
@@ -168,57 +170,42 @@ public class Controlleur implements ActionListener, MouseListener {
 				ErrorManagement.showError(laFenetre.getPanelRecherche().getLblErreur(), ex.getMessage(), 1);
 			}//fin catch
 		}//fin else if
-		//-----------------------------------------------------------------
-		// B O U T O N   A J O U T E R   -   P A N E L   A J O U T   U R L
-		//-----------------------------------------------------------------
+		//----------------------------------//
+		// Bouton AJOUTER - Panel AJOUT URL //
+		//----------------------------------//
 		else if(e.getSource() == laFenetre.getPanelAjout().getBtnAjouter())
 		{
-			try {
-				//On vérifie que le champ Tag n'est pas vide
-				ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbTag());
-				
-				//On ajoute le tag au tableau du panel ajouter
-				laFenetre.getPanelAjout().getLeModele().ajouterTag(new Tag(0,laFenetre.getPanelAjout().getTxbTag().getText()));
-				
-				//On vide puis on place le focus à nouveau dans la zone de saisies pour ajouter un tag
-				ErrorManagement.clearAndFocusField(laFenetre.getPanelAjout().getTxbTag());
-			} catch (Exception ex) {
-				//On affiche l'erreur dans le label d'erreurs
-				ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
-			}//fin catch
+			//On ajoute le tag dans le tableau
+			ajouterUnTagAjoutUrl();
 		}//fin else if
-		//---------------------------------------------------------------------
-		// B O U T O N   S U P P R I M E R   -   P A N E L   A J O U T   U R L
-		//---------------------------------------------------------------------
+		//------------------------------------//
+		// Bouton SUPPRIMER - Panel AJOUT URL //
+		//------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelAjout().getBtnSupprimer())
 		{
-			//On récupère les index des tags qui sont sélectionnés
-			int[] selection = laFenetre.getPanelAjout().getTableTags().getSelectedRows();
-			
-			//Si la selection est supérieure à 0 on supprime les tags du tableau
-			if(selection.length > 0)
-			{
-				for(int i = selection.length - 1; i >= 0; i--)
-				{
-					laFenetre.getPanelAjout().getLeModele().supprimerTag(selection[i]);
-				}//fin for
-			}//fin if
-			//Sinon on affiche une erreur
-			else
-			{
-				ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Veuillez sélectionner au moins un tag !", 2);
-			}//fin else
+			//On supprime du tableau les Tags sélectionnés par l'utilisateur
+			supprimerTagsSelectionnesAjoutUrl();
+		}//fin else if
+		//--------------------------------------//
+		// Bouton ENREGISTRER - Panel AJOUT URL //
+		//--------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelAjout().getBtnEnregistrer())
+		{
+			enregisterNouvelUrl();
 		}//fin else if
 	}//fin actionPerformed
 	
+	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
+	 * Méthodes liées à la gestion d'évènements liés à la souris *
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 	/**
 	 * Gestion des clics du logiciel
 	 * @param e - Le clic détecté [MouseEvent]
 	 */
 	public void mouseClicked(MouseEvent e) {
-		//-----------------------------------------------------------------------------------
-		// U N E   L I G N E   D E   L A   J T A B L E   -   P A N E L   R E C H E R C H E R
-		//-----------------------------------------------------------------------------------
+		//-----------------------------------------//
+		// Une Ligne du Tableau - Panel RECHERCHER //
+		//-----------------------------------------//
 		if(e.getSource() == laFenetre.getPanelRecherche().getTableUrls())
 		{
 			try {
@@ -237,21 +224,25 @@ public class Controlleur implements ActionListener, MouseListener {
 		}//fin if
 	}//fin mouseClicked
 
-	public void mouseEntered(MouseEvent e) {
-		
-	}
+	public void mouseEntered(MouseEvent e) { }
 
-	public void mouseExited(MouseEvent e) {
-		
-	}
+	public void mouseExited(MouseEvent e) { }
 
-	public void mousePressed(MouseEvent e) {
-		
-	}
+	public void mousePressed(MouseEvent e) { }
 
-	public void mouseReleased(MouseEvent e) {
-		
-	}
+	public void mouseReleased(MouseEvent e) { }
+	
+	/* ~~~~~~~~~~~~~~~~~~~ *
+	 * Méthodes CLASSIQUES *
+	 * ~~~~~~~~~~~~~~~~~~~ */
+	/**
+	 * Permet de définir la fenetre principale du controlleur principal
+	 * @param laFenetre - La fenetre principal à définir [FenetrePrincipale]
+	 */
+	public void ajouterFenetrePrincipale(FenetrePrincipale laFenetre)
+	{
+		this.laFenetre = laFenetre;
+	}//fin ajouterFenetrePrincipale	
 	
 	/**
 	 * Affiche ou cache le pannel de connexion en fonction du paramètre
@@ -276,6 +267,9 @@ public class Controlleur implements ActionListener, MouseListener {
 		}//fin if
 	}//fin afficherOuCacherPanelConnexion
 	
+	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
+	 * Méthodes liées au JPanelConnexion *
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 	/**
 	 * Vérifie que les logs correspondent à un utlisateur dans la base
 	 * @param identifiant
@@ -297,4 +291,88 @@ public class Controlleur implements ActionListener, MouseListener {
 		//Sinon, on valide l'authentification et on initialise les autres panels
 		utilisateurConnecte = unUtilisateur;
 	}//fin checkIdentifiants
+	
+	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
+	 * Méthodes liées au JPanelAjouterUrl *
+	 * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+	/**
+	 * Ajoute un tag dans le tableau de Tags du panel d'ajout d'Url
+	 */
+	private void ajouterUnTagAjoutUrl()
+	{
+		try {
+			//On vérifie que le champ Tag n'est pas vide
+			ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbTag());
+			
+			//On ajoute le tag au tableau du panel ajouter
+			laFenetre.getPanelAjout().getLeModele().ajouterTag(new Tag(0,laFenetre.getPanelAjout().getTxbTag().getText()));
+			
+			//On vide puis on place le focus à nouveau dans la zone de saisies pour ajouter un tag
+			ErrorManagement.clearAndFocusField(laFenetre.getPanelAjout().getTxbTag());
+		} catch (Exception ex) {
+			//On affiche l'erreur dans le label d'erreurs
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
+		}//fin catch
+	}//fin ajouterUnTagAjoutUrl
+	
+	/**
+	 * Supprime les tags qui sont sélectionnés dans le tableau de Tags du panel d'ajout d'Url. Si il n'y a aucun tag de sélectionné, il sera affiché un avertissement à l'utilisateur
+	 */
+	private void supprimerTagsSelectionnesAjoutUrl()
+	{
+		//On récupère les index des tags qui sont sélectionnés
+		int[] selection = laFenetre.getPanelAjout().getTableTags().getSelectedRows();
+		
+		//Si la selection est supérieure à 0 on supprime les tags du tableau
+		if(selection.length > 0)
+		{
+			for(int i = selection.length - 1; i >= 0; i--)
+			{
+				laFenetre.getPanelAjout().getLeModele().supprimerTag(selection[i]);
+			}//fin for
+		}//fin if
+		//Sinon on affiche une erreur
+		else
+		{
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Veuillez sélectionner au moins un tag !", 2);
+		}//fin else
+	}//fin supprimerTagsSelectionnes
+	
+	
+	private void enregisterNouvelUrl()
+	{
+		try {
+			//On vérifie que les zones de saisies ne sont pas vides
+			ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbIntitule());
+			ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbUrl());
+			
+			// INSERTION DE NOUVEAUX TAGS DANS LA BDD
+			//On récupère la liste de Tags qu'a enregistré l'utilisateur
+			List<Tag> tagsAEnregistrer = laFenetre.getPanelAjout().getLeModele().getListeTags();
+			
+			int[] listeTagsAssociesALUrl = new int[tagsAEnregistrer.size()];
+			
+			//Pour chaque tag dans la liste, on va regarder s'il existe dans la bdd
+			for(int i = 0 ; i < tagsAEnregistrer.size(); i++)
+			{
+				//On créer un tag temporaire pour vérifier s'il faut le créer en bdd
+				Tag tagTemp = listeTag.read(tagsAEnregistrer.get(i).getLibelle());
+				
+				//S'il n'existe pas, on va l'insérer dans la base
+				if(tagTemp.getLibelle().equals(""))
+				{
+					tagTemp = listeTag.create(tagsAEnregistrer.get(i));															// À VÉRIFIER !!!!!!!
+				}//fin if
+				
+				//On va stocker l'id du tag dans le tableau pour pouvoir insérer un tuple dans t_ligne_url_tag
+				listeTagsAssociesALUrl[i] = tagTemp.getId();
+			}//fin foreach
+			
+			
+			
+			
+		} catch (Exception ex) {
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
+		}
+	}
 }//fin classe

@@ -17,10 +17,9 @@ public class UrlDAO extends DAO<Url> {
 	{
 		try {
 			//On prépare la requête d'insertion
-			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_url (id, adresse) VALUES (?, ?) ;");
+			PreparedStatement prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_url (id, adresse) VALUES (?) ;");
 			//On assigne des valeurs à la requête préparée
-			prepare.setInt(1,obj.getId());
-			prepare.setString(2, obj.getAdresse());
+			prepare.setString(1, obj.getAdresse());
 			//On exécute la requête
 			prepare.executeUpdate();
 			obj = this.read(obj.getId());
@@ -53,6 +52,30 @@ public class UrlDAO extends DAO<Url> {
 		}//fin catch
 		return lUrl;
 	}//fin read
+	
+	/**
+	 *  Récupère l'Url correspondant à l'intitulé passé en paramètre, depuis la base de données.
+	 * @param L'intitulé de l'url à récupérer [String]
+	 * @return L'Url récupéré [Url] 
+	 */
+	public Url read(String intitule)
+	{
+		//On créer une Url vide
+		Url lUrl = new Url();
+		try{
+			//On exécute la requête permettant de récupérer l'Url grâce à son id
+			ResultSet result = this.connect
+					.createStatement(
+							ResultSet.TYPE_SCROLL_INSENSITIVE,
+							ResultSet.CONCUR_UPDATABLE)
+							.executeQuery("SELECT * FROM \"veilletechnologique\".t_url WHERE intitule=" + intitule + ";");
+			if(result.first())
+				lUrl = new Url(result.getInt("id"), intitule, result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur")));
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return lUrl;
+	}
 	
 	/**
 	 * Modifie une Url dans la base de données depuis l'Url passée en paramètre
