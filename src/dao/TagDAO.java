@@ -22,7 +22,7 @@ public class TagDAO extends DAO<Tag> {
 			prepare.setString(1, obj.getLibelle());
 			//On exécute la requête
 			prepare.executeUpdate();
-			obj = this.read(obj.getId());
+			obj = this.read(obj);
 		} catch ( SQLException ex) {
 			ex.printStackTrace();
 		}//fin catch
@@ -55,7 +55,7 @@ public class TagDAO extends DAO<Tag> {
 		return leTag;
 	}//fin read
 	
-	public Tag read(String libelle)
+	public Tag read(Tag tag)
 	{
 		//On créer un tag "vide"
 		Tag leTag = new Tag();
@@ -65,16 +65,16 @@ public class TagDAO extends DAO<Tag> {
 			PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE libelle=?;");
 			
 			//On assigne des valeurs à la requête préparée
-			prepare.setString(1, libelle);
+			prepare.setString(1, tag.getLibelle());
 			
 			//On exécute la requête
 			ResultSet result = prepare.executeQuery();
 			
 			//S'il y a un résultat, on va remplacer les valeurs du tag vide par celles du résultat
-			if(result.first())
+			if(result.next())
 			{
 				leTag.setId(result.getInt("id"));
-				leTag.setLibelle(libelle);
+				leTag.setLibelle(result.getString("libelle"));
 			}//fin if
 		} catch ( SQLException ex) {
 			ex.printStackTrace();

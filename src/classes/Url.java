@@ -86,6 +86,15 @@ public class Url {
 		listeTagAssocies = new ArrayList<Tag>();
 	}//fin Url()
 	
+	public Url(String intitule, String adresse, Utilisateur createur)
+	{
+		this.id			= 0;
+		this.intitule 	= intitule;
+		this.adresse 	= adresse;
+		this.createur	= createur;
+		this.listeTagAssocies = new ArrayList<Tag>();
+	}
+	
 	/**
 	 * Instancie un objet de la classe Url à partir des paramètres
 	 * @param L'id de l'url [Integer]

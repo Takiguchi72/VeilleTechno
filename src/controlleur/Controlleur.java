@@ -13,7 +13,9 @@ import vues.FenetrePrincipale;
 import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
+import dao.ConnexionPostgreSQL;
 import dao.DAO;
+import dao.TagDAO;
 import dao.UrlDAO;
 import dao.UtilisateurDAO;
 
@@ -56,6 +58,7 @@ public class Controlleur implements ActionListener, MouseListener {
 	{
 		super();
 		listeUrl = new UrlDAO();
+		listeTag = new TagDAO();
 		lesUtilisateurs = new UtilisateurDAO();
 		utilisateurConnecte = new Utilisateur();
 	}//fin constructeur
@@ -356,7 +359,7 @@ public class Controlleur implements ActionListener, MouseListener {
 			for(int i = 0 ; i < tagsAEnregistrer.size(); i++)
 			{
 				//On créer un tag temporaire pour vérifier s'il faut le créer en bdd
-				Tag tagTemp = listeTag.read(tagsAEnregistrer.get(i).getLibelle());
+				Tag tagTemp = listeTag.read(tagsAEnregistrer.get(i));
 				
 				//S'il n'existe pas, on va l'insérer dans la base
 				if(tagTemp.getLibelle().equals(""))
@@ -368,8 +371,14 @@ public class Controlleur implements ActionListener, MouseListener {
 				listeTagsAssociesALUrl[i] = tagTemp.getId();
 			}//fin foreach
 			
+			//On créer l'url dans la bdd
+			Url urlCree = listeUrl.create(new Url(laFenetre.getPanelAjout().getTxbIntitule().getText(), laFenetre.getPanelAjout().getTxbUrl().getText(), utilisateurConnecte));
 			
-			
+			//Pour chaque tag, on va insérer un tuple dans t_ligne_url_tag pour faire l'association du tag à l'url créé
+			for(int i = 0 ; i < listeTagsAssociesALUrl.length ; i++)
+			{
+				//TODO Faire l'insertion dans t_ligne_url_tag
+			}
 			
 		} catch (Exception ex) {
 			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);

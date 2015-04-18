@@ -34,11 +34,11 @@ public abstract class DAO<T> {
 	public abstract T read(int code);
 	
 	/**
-	 * Méthode abstraite pour récupérer un objet dans la base à partir d'une chaine
-	 * @param chaine
-	 * @return Retourne le <T> objet
+	 * Abstract method to read a <T> object
+	 * @param The object [T]
+	 * @return Return the <T> object
 	 */
-	public abstract T read(String chaine);
+	public abstract T read(T obj);
 	
 	/**
 	 * Abstract method to update a <T> object

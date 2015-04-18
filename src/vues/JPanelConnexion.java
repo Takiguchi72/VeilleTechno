@@ -73,6 +73,7 @@ public class JPanelConnexion extends JPanel{
 	 */
 	public JPanelConnexion(Controlleur controlleurPrincipal) {
 		setLayout(null);
+		
 		lblIdentifiant = new JLabel("Identifiant :");
 		lblIdentifiant.setFocusable(false);
 		lblIdentifiant.setHorizontalAlignment(SwingConstants.RIGHT);
