@@ -29,8 +29,6 @@ public class TagDAO extends DAO<Tag> {
 		return obj;
 	}//fin create
 	
-	
-	
 	/**
 	 * Récupère le Tag correspondant à l'id passé en paramètre, depuis la base de données.
 	 * @param L'id du Tag à récupérer [Integer]

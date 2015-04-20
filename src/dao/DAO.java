@@ -9,6 +9,8 @@ package dao;
 import java.sql.Connection;
 import java.util.List;
 
+import classes.Tag;
+
 public abstract class DAO<T> {
 	/* **********
 	 * Attributes
@@ -65,5 +67,4 @@ public abstract class DAO<T> {
 	 * @throws Exception
 	 */
 	public abstract List<T> selectCorrespondantA(String critere) throws Exception;
-	
 }//end Class

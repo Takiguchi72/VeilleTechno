@@ -57,10 +57,18 @@ public class Url {
 		this.adresse = adresse;
 	}
 	
+	/**
+	 * Retourne le créateur de l'Url
+	 * @return Le créateur de l'Url [Utilisateur]
+	 */
 	public Utilisateur getCreateur() {
 		return createur;
 	}
 
+	/**
+	 * Modifie le créateur de l'Url à partir de celui passé en paramètres
+	 * @param Le createur qui remplacera l'ancien [Utilisateur]
+	 */
 	public void setCreateur(Utilisateur createur) {
 		this.createur = createur;
 	}
@@ -71,6 +79,15 @@ public class Url {
 	 */
 	public List<Tag> getListeTagAssocies() {
 		return listeTagAssocies;
+	}
+	
+	/**
+	 * Modifie la liste de Tags  associés à l'Url à partir de la liste passée en paramètres
+	 * @param La nouvelle liste qui remplacera l'ancienne [List<Tag>]
+	 */
+	public void setListeTagAssocies(List<Tag> listeTagAssocies)
+	{
+		this.listeTagAssocies = listeTagAssocies;
 	}
 
 	/* **********************************
