@@ -82,4 +82,16 @@ public class ModeleTableAjout extends AbstractTableModel {
  
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
+    
+    /**
+	 * Supprime tous les éléments de la liste
+	 */
+	public void removeAll()
+	{
+		//On supprime chaque élément de la liste
+		for(int i = 0 ; i < listeTags.size() ; i++)
+		{
+			listeTags.remove(i);
+		}//fin for
+	}//fin removeAll
 }//fin classe

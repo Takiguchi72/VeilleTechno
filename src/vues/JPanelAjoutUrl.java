@@ -15,7 +15,7 @@ import java.awt.Font;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class JPanelAjoutUrl extends JPanel{
+public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	
     /* **********************************
 	 * A T T R I B U T S
@@ -186,6 +186,21 @@ public class JPanelAjoutUrl extends JPanel{
 		
 		JScrollPane scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(340, 150, 370, 230);
+		
 		add(scrollPane);
+		
+		txbIntitule.requestFocus();
 	}//fin constructeur
+
+	/**
+	 * Réinitialise tous les composants du panel
+	 */
+	@Override
+	public void reinitialiser() {
+		txbIntitule.setText("");
+		txbUrl.setText("");
+		txbTag.setText("");
+		leModele.removeAll();
+		txbIntitule.requestFocus();
+	}//fin reinitialiser()
 }//fin classe

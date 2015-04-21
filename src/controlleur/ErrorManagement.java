@@ -16,6 +16,9 @@ public class ErrorManagement {
 		//In terms of the error level, the error color will be change
 		switch (errorLevel)
 		{
+		case 0: label.setForeground(new Color(0, 162, 6));		//couleur vert-emeraude
+			label.setText("<html>" + message + "</html>");
+			break;
 		case 1: label.setForeground(Color.RED);
 			label.setText("<html>Erreur : " + message + "</html>");
 			break;
@@ -24,7 +27,7 @@ public class ErrorManagement {
 			break;
 		default : label.setForeground(Color.RED);
 			label.setText("<html>Erreur : " + message + "</html>");
-		break;
+			break;
 		}//fin switch()
 		label.setVisible(true);
 	}//fin afficherErreur()

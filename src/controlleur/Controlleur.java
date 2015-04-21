@@ -2,6 +2,7 @@ package controlleur;
 
 import static util.FonctionsString.md5;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,12 +10,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import vues.FenetrePrincipale;
 import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
-import dao.ConnexionPostgreSQL;
 import dao.DAO;
 import dao.TagDAO;
 import dao.UrlDAO;
@@ -195,7 +197,7 @@ public class Controlleur implements ActionListener, MouseListener {
 		//--------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelAjout().getBtnEnregistrer())
 		{
-			enregisterNouvelUrl();
+			enregisterNouvelleUrl();
 		}//fin else if
 	}//fin actionPerformed
 	
@@ -345,7 +347,7 @@ public class Controlleur implements ActionListener, MouseListener {
 	/**
 	 * Effectue les contrôles de saisies, puis enregistre la nouvelle Url dans la base de données, en effectuant les associations entre l'Url et les tags
 	 */
-	private void enregisterNouvelUrl()
+	private void enregisterNouvelleUrl()
 	{
 		try {
 			//On vérifie que les zones de saisies ne sont pas vides
@@ -380,8 +382,14 @@ public class Controlleur implements ActionListener, MouseListener {
 			
 			//On enregistre l'url dans la bdd
 			listeUrl.create(urlACreer);
+			
+			//On réinitialise le panel
+			laFenetre.getPanelAjout().reinitialiser();
+			
+			//Puis on affiche un message pour dire que l'insertion a été effectuée
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "L'url a bien été enregistrée !", 0);
 		} catch (Exception ex) {
 			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
 		}
-	}
+	}//fin enregistrerNouvelleUrl
 }//fin classe
