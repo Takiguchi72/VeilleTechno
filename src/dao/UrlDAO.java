@@ -35,17 +35,17 @@ public class UrlDAO extends DAO<Url> {
 			
 			//Si la liste de obj n'est pas vide, c'est que des tags sont associés à cette url
 			//donc on va insérer une ligne dans t_ligne_url_tag pour chaque tag associé
-			if(obj.getListeTagAssocies().size() > 0)
+			if(obj.getListeTagsAssocies().size() > 0)
 			{
 				//Pour chaque Tag de la liste,
-				for(int i = 0 ; i < obj.getListeTagAssocies().size() ; i++)
+				for(int i = 0 ; i < obj.getListeTagsAssocies().size() ; i++)
 				{
 					//On créer la requête d'insertion
 					PreparedStatement otherPrepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_ligne_url_tag (id_url, id_tag) VALUES (?,?)");
 					
 					//On affecte les valeurs
 					otherPrepare.setInt(1, obj.getId());
-					otherPrepare.setInt(2, obj.getListeTagAssocies().get(i).getId());
+					otherPrepare.setInt(2, obj.getListeTagsAssocies().get(i).getId());
 					
 					//On exécute la requete
 					otherPrepare.executeUpdate();
@@ -99,7 +99,7 @@ public class UrlDAO extends DAO<Url> {
 				}//fin while
 				
 				//On remplace la liste de tags de l'Url (qui est normalement vide) par celle générée via la requête
-				obj.setListeTagAssocies(listeTagAssocies);
+				obj.setListeTagsAssocies(listeTagAssocies);
 			}//fin if
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -155,7 +155,7 @@ public class UrlDAO extends DAO<Url> {
 				}//fin while
 				
 				//On remplace la liste de tags de l'Url (qui est normalement vide) par celle générée via la requête
-				obj.setListeTagAssocies(listeTagAssocies);
+				obj.setListeTagsAssocies(listeTagAssocies);
 
 			}//fin if
 		} catch (SQLException ex) {
@@ -185,12 +185,12 @@ public class UrlDAO extends DAO<Url> {
 			
 			//Si la liste de tags associés est supérieure à 0, on va modifier les associations entre l'Url à modifier
 			//et les tags qui lui sont associés, dans t_ligne_url_tag
-			if(obj.getListeTagAssocies().size() > 0)
+			if(obj.getListeTagsAssocies().size() > 0)
 			{
 				//On va dans un premier temps, vérifier quelles sont les associations entre l'url et les tags qui sont à supprimer
 				
 				//On va créer une liste temporaire à partir de la liste des tags associés à l'url, pour optimiser la création des nouvelles associations
-				List<Tag> listeTagACreer = obj.getListeTagAssocies();
+				List<Tag> listeTagACreer = obj.getListeTagsAssocies();
 				
 				//On récupère la liste des ID des tags associés à l'Url (dans t_ligne_url_tag)
 				prepare = this.connect.prepareStatement("SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=?");
@@ -208,10 +208,10 @@ public class UrlDAO extends DAO<Url> {
 					Tag tagDeLaBoucle = new TagDAO().read(result.getInt("id_tag"));
 					
 					//On parcourt la liste des tags associés à l'url pour savoir si le tag correspondant à l'association en cours est dans la liste
-					for(int i = 0 ; i < obj.getListeTagAssocies().size() ; i++)
+					for(int i = 0 ; i < obj.getListeTagsAssocies().size() ; i++)
 					{
 						//Si le tag correspond à un tag de la liste, on met le bouléen à "true" et on stope la boucle
-						if(tagDeLaBoucle.equals(obj.getListeTagAssocies().get(i)))
+						if(tagDeLaBoucle.equals(obj.getListeTagsAssocies().get(i)))
 						{
 							//On supprime le tag de la liste temporaire car on sait que cette association existe, donc qu'on a ni besoin de la créer, ni besoin de la supprimer
 							listeTagACreer.remove(tagDeLaBoucle); 

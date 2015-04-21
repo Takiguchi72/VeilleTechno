@@ -97,9 +97,9 @@ public class TestUrlDAO {
 		Tag tag2 = bddTag.read(2);
 		Tag tag3 = bddTag.read(3);
 		
-		u2.getListeTagAssocies().add(tag1);
-		u2.getListeTagAssocies().add(tag3);
-		System.out.println("\n   Liste des tags associés de u2 :\n" + u2.getListeTagAssocies() + "\n");
+		u2.getListeTagsAssocies().add(tag1);
+		u2.getListeTagsAssocies().add(tag3);
+		System.out.println("\n   Liste des tags associés de u2 :\n" + u2.getListeTagsAssocies() + "\n");
 		
 		Url urlCreee2 = bddUrl.create(u2);
 
@@ -108,13 +108,13 @@ public class TestUrlDAO {
 		{
 			System.out.println("Création réussie !\n" + urlCreee2.toString());
 			
-			if(urlCreee2.getListeTagAssocies().size() == 2)
+			if(urlCreee2.getListeTagsAssocies().size() == 2)
 			{
 				System.out.println("   Les tags ont bien été associés !");
 				
 				//On récupère l'url créée
 				Url urlRecuperee2 = bddUrl.read(urlCreee2);
-				System.out.println("   Liste tags associés récupérée :\n" + urlRecuperee2.getListeTagAssocies() + "\n");
+				System.out.println("   Liste tags associés récupérée :\n" + urlRecuperee2.getListeTagsAssocies() + "\n");
 				
 				//On vérifie que l'url a bien été récupérée
 				if(urlRecuperee2.getId() != 0 && urlRecuperee2.getIntitule().equals("test") && urlRecuperee2.getAdresse().equals("http://test.test/")
@@ -122,13 +122,13 @@ public class TestUrlDAO {
 				{
 					System.out.println("Récupération réussie !\n" + urlRecuperee2.toString());
 
-					if(urlRecuperee2.getListeTagAssocies().size() == 2)
+					if(urlRecuperee2.getListeTagsAssocies().size() == 2)
 					{
 						//On modifie l'url
 						urlRecuperee2.setIntitule("un autre test");
 						urlRecuperee2.setAdresse("http://un.autre.test/");
-						urlRecuperee2.getListeTagAssocies().remove(1);		//On supprime tag3 de la liste
-						urlRecuperee2.getListeTagAssocies().add(tag2);		//On ajoute tag2 à la liste
+						urlRecuperee2.getListeTagsAssocies().remove(1);		//On supprime tag3 de la liste
+						urlRecuperee2.getListeTagsAssocies().add(tag2);		//On ajoute tag2 à la liste
 						
 						Url urlModifiee2 = bddUrl.update(urlRecuperee2);
 						

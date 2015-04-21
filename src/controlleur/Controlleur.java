@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.List;
 
 import vues.FenetrePrincipale;
@@ -341,7 +342,9 @@ public class Controlleur implements ActionListener, MouseListener {
 		}//fin else
 	}//fin supprimerTagsSelectionnes
 	
-	
+	/**
+	 * Effectue les contrôles de saisies, puis enregistre la nouvelle Url dans la base de données, en effectuant les associations entre l'Url et les tags
+	 */
 	private void enregisterNouvelUrl()
 	{
 		try {
@@ -349,37 +352,34 @@ public class Controlleur implements ActionListener, MouseListener {
 			ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbIntitule());
 			ErrorManagement.checkEmptyField(laFenetre.getPanelAjout().getTxbUrl());
 			
+			//On va créer un objet Url correspondant à celui qui sera créé
+			Url urlACreer = new Url(laFenetre.getPanelAjout().getTxbIntitule().getText(), laFenetre.getPanelAjout().getTxbUrl().getText(), utilisateurConnecte);
+			
 			// INSERTION DE NOUVEAUX TAGS DANS LA BDD
-			//On récupère la liste de Tags qu'a enregistré l'utilisateur
-			List<Tag> tagsAEnregistrer = laFenetre.getPanelAjout().getLeModele().getListeTags();
+			//On créer une liste de tags vide pour l'affecter par la suite à l'url qu'on va créer
+			List<Tag> listeTagsAssocies = new ArrayList<Tag>();
 			
-			int[] listeTagsAssociesALUrl = new int[tagsAEnregistrer.size()];
-			
-			//Pour chaque tag dans la liste, on va regarder s'il existe dans la bdd
-			for(int i = 0 ; i < tagsAEnregistrer.size(); i++)
+			//Pour chaque tag dans la liste, on va vérifier qu'il existe dans la bdd
+			//Si ce n'est pas le cas, on va le créer
+			for(int i = 0 ; i < laFenetre.getPanelAjout().getLeModele().getListeTags().size() ; i++)
 			{
 				//On créer un tag temporaire pour vérifier s'il faut le créer en bdd
-				Tag tagTemp = listeTag.read(tagsAEnregistrer.get(i));
+				Tag tagTemp = listeTag.read(laFenetre.getPanelAjout().getLeModele().getListeTags().get(i));
 				
 				//S'il n'existe pas, on va l'insérer dans la base
-				if(tagTemp.getLibelle().equals(""))
+				if(tagTemp.getId() == 0)
 				{
-					tagTemp = listeTag.create(tagsAEnregistrer.get(i));															// À VÉRIFIER !!!!!!!
+					tagTemp = listeTag.create(laFenetre.getPanelAjout().getLeModele().getListeTags().get(i));															// À VÉRIFIER !!!!!!!
 				}//fin if
 				
-				//On va stocker l'id du tag dans le tableau pour pouvoir insérer un tuple dans t_ligne_url_tag
-				listeTagsAssociesALUrl[i] = tagTemp.getId();
-			}//fin foreach
+				listeTagsAssocies.add(tagTemp);
+			}//fin for
 			
-			//On créer l'url dans la bdd
-			Url urlCree = listeUrl.create(new Url(laFenetre.getPanelAjout().getTxbIntitule().getText(), laFenetre.getPanelAjout().getTxbUrl().getText(), utilisateurConnecte));
+			//On affecte la liste des tags associés à l'Url à créer
+			urlACreer.setListeTagsAssocies(listeTagsAssocies);
 			
-			//Pour chaque tag, on va insérer un tuple dans t_ligne_url_tag pour faire l'association du tag à l'url créé
-			for(int i = 0 ; i < listeTagsAssociesALUrl.length ; i++)
-			{
-				//TODO Faire l'insertion dans t_ligne_url_tag
-			}
-			
+			//On enregistre l'url dans la bdd
+			listeUrl.create(urlACreer);
 		} catch (Exception ex) {
 			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
 		}

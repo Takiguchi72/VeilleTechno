@@ -11,7 +11,7 @@ public class Url {
 	private String intitule;
 	private String adresse;
 	private Utilisateur createur;
-	private List<Tag> listeTagAssocies;
+	private List<Tag> listeTagsAssocies;
 	
 	
 	/* **********************************
@@ -77,17 +77,17 @@ public class Url {
 	 * Retourne la liste des Tags associés à l'Url
 	 * @return Liste des Tags associés à l'Url [List<Tag>]
 	 */
-	public List<Tag> getListeTagAssocies() {
-		return listeTagAssocies;
+	public List<Tag> getListeTagsAssocies() {
+		return listeTagsAssocies;
 	}
 	
 	/**
 	 * Modifie la liste de Tags  associés à l'Url à partir de la liste passée en paramètres
 	 * @param La nouvelle liste qui remplacera l'ancienne [List<Tag>]
 	 */
-	public void setListeTagAssocies(List<Tag> listeTagAssocies)
+	public void setListeTagsAssocies(List<Tag> listeTagsAssocies)
 	{
-		this.listeTagAssocies = listeTagAssocies;
+		this.listeTagsAssocies = listeTagsAssocies;
 	}
 
 	/* **********************************
@@ -102,7 +102,7 @@ public class Url {
 		intitule = "";
 		adresse  = "";
 		createur = new Utilisateur();
-		listeTagAssocies = new ArrayList<Tag>();
+		listeTagsAssocies = new ArrayList<Tag>();
 	}//fin Url()
 	
 	public Url(String intitule, String adresse, Utilisateur createur)
@@ -111,7 +111,7 @@ public class Url {
 		this.intitule 	= intitule;
 		this.adresse 	= adresse;
 		this.createur	= createur;
-		this.listeTagAssocies = new ArrayList<Tag>();
+		this.listeTagsAssocies = new ArrayList<Tag>();
 	}
 	
 	/**
@@ -125,7 +125,7 @@ public class Url {
 		this.intitule 	= intitule;
 		this.adresse 	= adresse;
 		this.createur	= createur;
-		this.listeTagAssocies = new ArrayList<Tag>();
+		this.listeTagsAssocies = new ArrayList<Tag>();
 	}//fin Url(...)
 	
 	/* **********************************
