@@ -116,6 +116,8 @@ public class BarreDeMenu extends JMenuBar {
 	 */
 	public BarreDeMenu(Controlleur controlleurPrincipal)
 	{
+		super();
+		
 		//Définition du menu "Fichier"
 		mnFichier = new JMenu("Fichier");
 		add(mnFichier);
@@ -124,6 +126,7 @@ public class BarreDeMenu extends JMenuBar {
 			mnitQuitter = new JMenuItem("Quitter");
 			mnitQuitter.addActionListener(controlleurPrincipal);
 			mnFichier.add(mnitQuitter);
+		
 		
 		//Définition du menu "Espace personnel"
 		mnEspacePersonnel = new JMenu("Espace personnel");
@@ -153,6 +156,7 @@ public class BarreDeMenu extends JMenuBar {
 		
 		//Définition des boutons de la barre de menu
 		mnitConsulter = new JMenuItem("Consulter");
+		mnitConsulter.setSize(150, this.getHeight());
 		mnitConsulter.addActionListener(controlleurPrincipal);
 		mnitConsulter.setVisible(false);
 		add(mnitConsulter);

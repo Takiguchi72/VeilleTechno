@@ -1,8 +1,6 @@
 package controlleur;
 
 import static util.FonctionsString.md5;
-
-import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,9 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
-
 import vues.FenetrePrincipale;
 import classes.Tag;
 import classes.Url;
@@ -99,8 +94,15 @@ public class Controlleur implements ActionListener, MouseListener {
 		//----------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitConsulter())
 		{
-			//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
-			afficherOuCacherPanelConnexion(false);
+			if(utilisateurConnecte.getIdentifiant().equals(""))
+			{
+				//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
+				afficherOuCacherPanelConnexion(false);				
+			}
+			else
+			{
+				laFenetre.afficherOuCacherEspacePersonnel(false);
+			}
 		}//fin else if
 		//---------------------------------------// 
 		// Bouton SE DÉCONNECTER - Barre de Menu //
@@ -112,6 +114,7 @@ public class Controlleur implements ActionListener, MouseListener {
 			
 			//On réinitialise les modules liées à l'espace personnel
 			laFenetre.reinitialiserEspacePersonnel();
+			laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(false);
 
 			//On réinitialise l'utilisateur
 			utilisateurConnecte = new Utilisateur();
@@ -123,6 +126,7 @@ public class Controlleur implements ActionListener, MouseListener {
 		{
 			//On cache le panel de recherches
 			laFenetre.getPanelRecherche().setVisible(false);
+			laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(true);
 			
 			//On affiche le panel d'ajout
 			laFenetre.getPanelAjout().setVisible(true);
@@ -147,7 +151,8 @@ public class Controlleur implements ActionListener, MouseListener {
 				laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(false);
 				
 				//On affiche le menu pour gérer son espace personnel
-				laFenetre.getLaBarreDeMenu().getMnEspacePersonnel().setVisible(true);
+				
+				laFenetre.getLaBarreDeMenu().etatUtilisateurConnecte(true);
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);

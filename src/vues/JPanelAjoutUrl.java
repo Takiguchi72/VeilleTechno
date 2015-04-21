@@ -1,20 +1,14 @@
 package vues;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import javax.swing.JButton;
-import javax.swing.SwingConstants;
-
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import classes.JLabelErreur;
 import classes.ModeleTableAjout;
 import controlleur.Controlleur;
-
-import java.awt.Color;
-import java.awt.Font;
-
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 
 public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	
