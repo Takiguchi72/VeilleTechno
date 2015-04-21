@@ -80,7 +80,7 @@ public class UrlDAO extends DAO<Url> {
 				obj = new Url(id, result.getString("intitule"), result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur")));
 				
 				//On va récupérer les tags associés à l'Url, pour alimenter la liste de l'objet
-				PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM t_tag WHERE id IN (SELECT id_tag FROM t_ligne_url_tag WHERE id_url=?");
+				PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE id IN (SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=?");
 				
 				//On affecte les valeurs
 				prepare.setInt(1, obj.getId());
@@ -128,15 +128,15 @@ public class UrlDAO extends DAO<Url> {
 			ResultSet result = prepare.executeQuery();
 			
 			//On récupère l'id de l'objet qui vient d'être créé
-			if(result.first())
+			if(result.next())
 			{
 				obj = new Url(	result.getInt("id"), 
-						result.getString("intitule"), 
-						result.getString("adresse"), 
-						new UtilisateurDAO().read(result.getString("createur"))	);
-				
+								result.getString("intitule"), 
+								result.getString("adresse"), 
+								new UtilisateurDAO().read(result.getString("createur"))	);
+
 				//On va récupérer les tags associés à l'Url, pour alimenter la liste de l'objet
-				prepare = this.connect.prepareStatement("SELECT * FROM t_tag WHERE id IN (SELECT id_tag FROM t_ligne_url_tag WHERE id_url=?");
+				prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE id IN (SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=? );");
 				
 				//On affecte les valeurs
 				prepare.setInt(1, obj.getId());
@@ -156,6 +156,7 @@ public class UrlDAO extends DAO<Url> {
 				
 				//On remplace la liste de tags de l'Url (qui est normalement vide) par celle générée via la requête
 				obj.setListeTagAssocies(listeTagAssocies);
+
 			}//fin if
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -233,10 +234,21 @@ public class UrlDAO extends DAO<Url> {
 				//Ensuite, on va créer les nouvelles associations
 				for(int i = 0 ; i < listeTagACreer.size() ; i++)
 				{
-					prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_ligne_url_tag (id_url, id_tag) VALUES (?,?);");
+					//On vérifie que l'association n'existe pas
+					prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=? AND id_tag=? ;");
 					prepare.setInt(1, obj.getId());
 					prepare.setInt(2, listeTagACreer.get(i).getId());
-					prepare.executeUpdate();
+					result = prepare.executeQuery();
+					
+					//Si aucun résultat n'a été retourné par la bdd, c'est que l'association n'existe pas, donc on la créer
+					if(!result.next())
+					{
+						//On créer l'association
+						prepare = this.connect.prepareStatement("INSERT INTO \"veilletechnologique\".t_ligne_url_tag (id_url, id_tag) VALUES (?,?);");
+						prepare.setInt(1, obj.getId());
+						prepare.setInt(2, listeTagACreer.get(i).getId());
+						prepare.executeUpdate();
+					}//fin if
 				}//fin for
 			}//fin if
 		} catch (SQLException ex) {

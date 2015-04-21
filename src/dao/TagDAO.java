@@ -93,7 +93,7 @@ public class TagDAO extends DAO<Tag> {
 							ResultSet.CONCUR_UPDATABLE
 						).executeUpdate(
 								"UPDATE \"veilletechnologique\".t_tag " +
-								"SET adresse = '" + obj.getLibelle() + "' " +
+								"SET libelle = '" + obj.getLibelle() + "' " +
 								"WHERE id = " + obj.getId() + ";");
 		} catch (SQLException ex) {
             ex.printStackTrace();

@@ -98,8 +98,10 @@ public class Url {
 	 */
 	public Url()
 	{
-		id 		= 0;
-		adresse = "";
+		id 		 = 0;
+		intitule = "";
+		adresse  = "";
+		createur = new Utilisateur();
 		listeTagAssocies = new ArrayList<Tag>();
 	}//fin Url()
 	
@@ -136,6 +138,6 @@ public class Url {
 	@Override
 	public String toString()
 	{
-		return "Id : " + id + ", Adresse : " + adresse;
+		return "Id : " + id + ", Intitule : " + intitule + ", Adresse : " + adresse + ", Createur : " + createur.getIdentifiant();
 	}//fin toString
 }//fin classe
