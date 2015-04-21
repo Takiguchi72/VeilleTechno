@@ -125,11 +125,21 @@ public class Controlleur implements ActionListener, MouseListener {
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPAjouter())
 		{
 			//On cache le panel de recherches
-			laFenetre.getPanelRecherche().setVisible(false);
-			laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(true);
+			laFenetre.afficherOuCacherEspacePersonnel(true);
 			
 			//On affiche le panel d'ajout
 			laFenetre.getPanelAjout().setVisible(true);
+		}//fin else if
+		//-------------------------------------------------//
+		// Bouton AJOUTER DES MARQUES-PAGE - Barre de Menu //
+		//-------------------------------------------------//
+		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPModifier())
+		{
+			//On cache le panel de recherches
+			laFenetre.afficherOuCacherEspacePersonnel(true);
+
+			//On affiche le panel d'ajout
+			laFenetre.getPanelModifier().setVisible(true);
 		}//fin else if
 		//------------------------------------//
 		// Bouton CONNEXION - Panel CONNEXION //

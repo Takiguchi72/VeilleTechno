@@ -15,7 +15,7 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		add(lblSelectionUrl);
 		
 		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(250, 25, 220, 24);
+		comboBox.setBounds(250, 25, 250, 24);
 		add(comboBox);
 		
 	}
