@@ -6,6 +6,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.SwingConstants;
 
+import classes.JLabelErreur;
 import classes.ModeleTableAjout;
 import controlleur.Controlleur;
 
@@ -172,12 +173,7 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		btnEnregistrer.addActionListener(controlleurPrincipal);
 		add(btnEnregistrer);
 		
-		lblErreur = new JLabel("Erreur");
-		lblErreur.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblErreur.setForeground(Color.RED);
-		lblErreur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblErreur.setBounds(79, 447, 636, 30);
-		lblErreur.setVisible(false);
+		lblErreur = new JLabelErreur();
 		add(lblErreur);
 		
 		

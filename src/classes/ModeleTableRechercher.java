@@ -101,7 +101,7 @@ public class ModeleTableRechercher extends AbstractTableModel {
 	public void updateUrlsEnFonctionDeLaRecherche(List<Url> nouvelleListe)
 	{
 		//On vide la liste d'url
-		removeAll();
+		listeUrls.clear();
 		
 		//Puis on la "remplit" à partir de la nouvelle liste
 		listeUrls = nouvelleListe;

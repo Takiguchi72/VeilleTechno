@@ -162,4 +162,29 @@ public class BarreDeMenu extends JMenuBar {
 		mnitConnexion.setVisible(true);
 		add(mnitConnexion);
 	}//fin constructeur
+	
+	/* **********************************
+	 * M E T H O D E S
+	 * ******************************* */
+	/**
+	 * Affiche et cache des composants en fonction de l'état de l'utilisateur (connecté ou non)
+	 * @param true 	-> Utilisateur connecté 	<=> Bouton "Connexion" affiché, Menu "Espace personnel" caché
+	 * @param false -> Utilisateur déconnecté	<=> Bouton "Connexion" caché, Menu "Espace personnel" affiché
+	 */
+	public void etatUtilisateurConnecte(boolean value)
+	{
+		mnitConnexion.setVisible(!value);
+		mnEspacePersonnel.setVisible(value);
+	}//fin etatUtilisateurConnecte
+	
+	/**
+	 * Affiche et cache des composants si l'utilisateur affiche le module de connexion, ou s'il le cache
+	 * @param true 	-> Utilisateur affiche le module 	<=> Bouton "Connexion" caché, Bouton "Consulter" affiché
+	 * @param false -> Utilisateur cache le module		<=> Bouton "Connexion" affiché, Bouton "Consulter" caché
+	 */
+	public void etatConnexionEnCours(boolean value)
+	{
+		mnitConnexion.setVisible(!value);
+		mnitConsulter.setVisible(value);
+	}//fin etatConnexionEnCours
 }//fin classe

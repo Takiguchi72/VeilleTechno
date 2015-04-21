@@ -11,6 +11,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import classes.JLabelErreur;
 import classes.JTableRechercher;
 import classes.ModeleTableRechercher;
 import controlleur.Controlleur;
@@ -106,12 +107,7 @@ public class JPanelRechercher extends JPanel {
 		add(btnRechercher);
 		
 		//Définition du label destiné à afficher les erreurs
-		lblErreur = new JLabel("Erreur :");
-		lblErreur.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblErreur.setForeground(Color.RED);
-		lblErreur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblErreur.setBounds(30, 432, 636, 30);
-		lblErreur.setVisible(false);
+		lblErreur = new JLabelErreur();
 		add(lblErreur);
 		
 		//Initialisation du tableau qui contiendra le résultat de la recherche

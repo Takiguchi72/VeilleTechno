@@ -69,7 +69,6 @@ public class ModeleTableAjout extends AbstractTableModel {
 	 */
 	public void ajouterTag(Tag nouveauTag) {
         listeTags.add(nouveauTag);
- 
         fireTableRowsInserted(listeTags.size() -1, listeTags.size() -1);
     }
 
@@ -79,7 +78,6 @@ public class ModeleTableAjout extends AbstractTableModel {
 	 */
     public void supprimerTag(int rowIndex) {
         listeTags.remove(rowIndex);
- 
         fireTableRowsDeleted(rowIndex, rowIndex);
     }
     
@@ -89,9 +87,8 @@ public class ModeleTableAjout extends AbstractTableModel {
 	public void removeAll()
 	{
 		//On supprime chaque élément de la liste
-		for(int i = 0 ; i < listeTags.size() ; i++)
-		{
-			listeTags.remove(i);
-		}//fin for
+		listeTags.clear();
+		//On indique au modèle que son contenu a changé, pour mettre à jour la vue
+		fireTableDataChanged();
 	}//fin removeAll
 }//fin classe

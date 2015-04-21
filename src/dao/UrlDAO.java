@@ -80,7 +80,7 @@ public class UrlDAO extends DAO<Url> {
 				obj = new Url(id, result.getString("intitule"), result.getString("adresse"), new UtilisateurDAO().read(result.getString("createur")));
 				
 				//On va récupérer les tags associés à l'Url, pour alimenter la liste de l'objet
-				PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE id IN (SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=?");
+				PreparedStatement prepare = this.connect.prepareStatement("SELECT * FROM \"veilletechnologique\".t_tag WHERE id IN (SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url=? );");
 				
 				//On affecte les valeurs
 				prepare.setInt(1, obj.getId());

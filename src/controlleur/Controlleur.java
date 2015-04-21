@@ -107,11 +107,11 @@ public class Controlleur implements ActionListener, MouseListener {
 		//---------------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPDeconnexion())
 		{
-			//On cache le menu pour gérer son espace personnel
-			laFenetre.getLaBarreDeMenu().getMnEspacePersonnel().setVisible(false);
-
-			//On affiche le bouton de connexion
-			laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(true);
+			//On modifie la barre de menu
+			laFenetre.getLaBarreDeMenu().etatUtilisateurConnecte(false);
+			
+			//On réinitialise les modules liées à l'espace personnel
+			laFenetre.reinitialiserEspacePersonnel();
 
 			//On réinitialise l'utilisateur
 			utilisateurConnecte = new Utilisateur();
@@ -169,6 +169,10 @@ public class Controlleur implements ActionListener, MouseListener {
 				//On met à jour la liste d'Urls en fonction de la recherche				
 				laFenetre.getPanelRecherche().getLeModele().updateUrlsEnFonctionDeLaRecherche(listeUrl.selectCorrespondantA(laFenetre.getPanelRecherche().getTxbRecherche().getText()));
 				laFenetre.getPanelRecherche().getScrollPane().setVisible(true);
+				
+				//On replace le focus dans la barre de recherche, et on selectionne le texte
+				laFenetre.getPanelRecherche().getTxbRecherche().requestFocus();
+				laFenetre.getPanelRecherche().getTxbRecherche().selectAll();
 			} catch (Exception ex) {
 				//On cache le scrollPane
 				laFenetre.getPanelRecherche().getScrollPane().setVisible(false);
@@ -252,25 +256,29 @@ public class Controlleur implements ActionListener, MouseListener {
 	
 	/**
 	 * Affiche ou cache le pannel de connexion en fonction du paramètre
-	 * @param true -> Affiche le pannel ; false -> Cache le pannel
+	 * @param true -> Affiche ce pannel ; false -> Cache ce pannel
 	 */
 	private void afficherOuCacherPanelConnexion(boolean valeur)
 	{
+		//On modifie la barre de menu en conséquence
+		laFenetre.getLaBarreDeMenu().etatConnexionEnCours(valeur);
+		//On affiche ou on cache les modules en fonction de "valeur"
 		laFenetre.getPanelConnexion().setVisible(valeur);
-		laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(!valeur);
-		laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(valeur);
 		laFenetre.getPanelRecherche().setVisible(!valeur);
+		//On cache les labels d'erreurs des deux modules
 		laFenetre.getPanelRecherche().getLblErreur().setVisible(false);
 		laFenetre.getPanelConnexion().getLblErreur().setVisible(false);
 		
 		//Si on cache le pannel de connexion, on va réinitialiser ses attributs
 		if(valeur == false)
 		{
-			laFenetre.getPanelConnexion().getTxbIdentifiant().setText(null);
-			laFenetre.getPanelConnexion().getPswdField().setText(null);
-			//On place le focus dans la barre de recherches
+			laFenetre.getPanelConnexion().reinitialiser();
 			laFenetre.getPanelRecherche().getTxbRecherche().requestFocus();
 		}//fin if
+		else
+		{
+			laFenetre.getPanelConnexion().getTxbIdentifiant().requestFocus();
+		}//fin else
 	}//fin afficherOuCacherPanelConnexion
 	
 	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *

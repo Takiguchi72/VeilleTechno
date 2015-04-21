@@ -9,10 +9,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import classes.JLabelErreur;
 import controlleur.Controlleur;
+
 import java.awt.Color;
 
-public class JPanelConnexion extends JPanel{
+public class JPanelConnexion extends JPanel implements JPanelPersonnalise{
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
@@ -103,12 +105,15 @@ public class JPanelConnexion extends JPanel{
 		btnConnexion.addActionListener(controlleurPrincipal);
 		add(btnConnexion);
 		
-		lblErreur = new JLabel("Erreur :");
-		lblErreur.setFont(new Font("Dialog", Font.BOLD, 14));
-		lblErreur.setForeground(Color.RED);
-		lblErreur.setHorizontalAlignment(SwingConstants.CENTER);
-		lblErreur.setBounds(72, 394, 636, 30);
-		lblErreur.setVisible(false);
+		lblErreur = new JLabelErreur();
 		add(lblErreur);
 	}//fin constructeur
+	
+	@Override
+	public void reinitialiser()
+	{
+		txbIdentifiant.setText(null);
+		pswdField.setText(null);
+		lblErreur.setVisible(false);
+	}
 }//fin classe
