@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import classes.Tag;
+import classes.Utilisateur;
 
 public class TagDAO extends DAO<Tag> {
 	/**
@@ -53,6 +54,11 @@ public class TagDAO extends DAO<Tag> {
 		return leTag;
 	}//fin read
 	
+	/**
+	 * Récupère le Tag correspondant aux attributs du Tag passé en paramètres, depuis la base de données.
+	 * @param Le Tag à récupérer [Tag]
+	 * @param Le Tag récupéré [Tag]
+	 */
 	public Tag read(Tag tag)
 	{
 		//On créer un tag "vide"
@@ -167,4 +173,29 @@ public class TagDAO extends DAO<Tag> {
 		}//fin catch
 		return listeDeTags;
 	}//fin select
+	
+	/**
+	 * Retourne la liste des Tags utilisés par l'utilisateur passé en paramètre
+	 * @return La liste des Tags récupérée [List<Tag>]
+	 */
+	public List<Tag> selectDe(Utilisateur utilisateur)
+	{
+		//On créer une liste vide
+		List<Tag> listeDesTagEmployesParLUtilisateur = new ArrayList<Tag>();
+		try {
+			//On va récupérer l'id de tous les tags utilisés par l'utilisateur passé en paramètre
+			PreparedStatement prepare = this.connect.prepareStatement("SELECT id_tag FROM \"veilletechnologique\".t_ligne_url_tag WHERE id_url in (SELECT id FROM \"veilletechnologique\".t_url WHERE createur=? );");
+			prepare.setString(1, utilisateur.getIdentifiant());
+			ResultSet result = prepare.executeQuery();
+			
+			//Pour chaque id récupéré, on va récupérer le Tag correspondant à l'id, et on l'ajoute à la liste
+			while(result.next())
+			{
+				listeDesTagEmployesParLUtilisateur.add(this.read(result.getInt("id_tag")));
+			}//fin while
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return listeDesTagEmployesParLUtilisateur;
+	}//fin selectDe
 }//fin classe

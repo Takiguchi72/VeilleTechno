@@ -46,6 +46,10 @@ public class Controlleur implements ActionListener, MouseListener {
 		return listeTag;
 	}
 	
+	public Utilisateur getUtilisateurConnecte() {
+		return utilisateurConnecte;
+	}
+
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */
@@ -130,15 +134,16 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On affiche le panel d'ajout
 			laFenetre.getPanelAjout().setVisible(true);
 		}//fin else if
-		//-------------------------------------------------//
-		// Bouton AJOUTER DES MARQUES-PAGE - Barre de Menu //
-		//-------------------------------------------------//
+		//--------------------------------------------------//
+		// Bouton MODIFIER DES MARQUES-PAGE - Barre de Menu //
+		//--------------------------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPModifier())
 		{
 			//On cache le panel de recherches
 			laFenetre.afficherOuCacherEspacePersonnel(true);
 
 			//On affiche le panel d'ajout
+			laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
 			laFenetre.getPanelModifier().setVisible(true);
 		}//fin else if
 		//------------------------------------//
@@ -217,6 +222,23 @@ public class Controlleur implements ActionListener, MouseListener {
 		else if(e.getSource() == laFenetre.getPanelAjout().getBtnEnregistrer())
 		{
 			enregisterNouvelleUrl();
+		}//fin else if
+		//---------------------------------------//
+		// Liste déroulante - Panel MODIFIER URL //
+		//---------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelModifier().getCbbUrls())
+		{
+			//Si l'item selectionné est un autre que le premier
+			if(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() > 0)
+			{
+				laFenetre.getPanelModifier().verouillerPartieModifier(false);
+				//On va alimenter le formulaire en fonction des attributs du Xième marque page (X <=> numéro de l'item selectionné)
+				laFenetre.getPanelModifier().initialiserPartieModifier(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() - 1);
+			}//fin if
+			else
+			{
+				laFenetre.getPanelModifier().verouillerPartieModifier(true);
+			}//fin else
 		}//fin else if
 	}//fin actionPerformed
 	

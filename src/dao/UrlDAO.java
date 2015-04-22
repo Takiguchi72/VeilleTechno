@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import classes.Tag;
 import classes.Url;
+import classes.Utilisateur;
 
 public class UrlDAO extends DAO<Url> {
 	/**
@@ -156,7 +156,6 @@ public class UrlDAO extends DAO<Url> {
 				
 				//On remplace la liste de tags de l'Url (qui est normalement vide) par celle générée via la requête
 				obj.setListeTagsAssocies(listeTagAssocies);
-
 			}//fin if
 		} catch (SQLException ex) {
 			ex.printStackTrace();
@@ -327,4 +326,29 @@ public class UrlDAO extends DAO<Url> {
 		}//fin catch
 		return listeDUrls;
 	}//fin select
+	
+	/**
+	 * Retourne la liste des marques page créés par l'utilisateur passé en paramètre
+	 * @param L'utilisateur [Utilisateur]
+	 */
+	public List<Url> selectDe(Utilisateur utilisateur)
+	{
+		//On créer une liste vide
+		List<Url> listeUrlCreesParLUtilisateur = new ArrayList<Url>();
+		try {
+			//On récupère l'id de tous les marques pages créés par l'utilisateur passé en paramètre
+			PreparedStatement prepare = this.connect.prepareStatement("SELECT id FROM \"veilletechnologique\".t_url WHERE createur=? ;");
+			prepare.setString(1, utilisateur.getIdentifiant());
+			ResultSet result = prepare.executeQuery();
+			
+			//Pour chaque id récupéré, on va récupérer le marque page à partir de son id, et l'ajouter à la liste
+			while(result.next())
+			{
+				listeUrlCreesParLUtilisateur.add(this.read(result.getInt("id")));
+			}//fin while
+		} catch (SQLException ex) {
+			ex.printStackTrace();
+		}//fin catch
+		return listeUrlCreesParLUtilisateur;
+	}//fin selectDe
 }//fin classe

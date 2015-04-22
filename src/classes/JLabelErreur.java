@@ -12,7 +12,7 @@ public class JLabelErreur extends JLabel {
 		setFont(new Font("Dialog", Font.BOLD, 14));
 		setForeground(Color.RED);
 		setHorizontalAlignment(SwingConstants.CENTER);
-		setBounds(80, 435, 650, 30);
+		setBounds(80, 420, 650, 30);
 		setVisible(false);
 	}
 }

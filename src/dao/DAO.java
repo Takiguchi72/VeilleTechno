@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import classes.Tag;
+import classes.Utilisateur;
 
 public abstract class DAO<T> {
 	/* **********
@@ -67,4 +68,11 @@ public abstract class DAO<T> {
 	 * @throws Exception
 	 */
 	public abstract List<T> selectCorrespondantA(String critere) throws Exception;
+	
+	/**
+	 * Abstract method to get all the elements of one user
+	 * @param The user [Utilisateur]
+	 * @return The list of <T> [List<T>]
+	 */
+	public abstract List<T> selectDe(Utilisateur utilistateur);
 }//end Class

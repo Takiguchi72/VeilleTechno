@@ -15,21 +15,20 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
     /* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
-	private JTextField txbUrl;
-	private JTextField txbIntitule;
-	private JTextField txbTag;
-	private JButton btnAjouter;
-	private JButton btnSupprimer;
-	private JButton btnEnregistrer;
-	private JLabel lblErreur;
-	private ModeleTableAjout leModele = new ModeleTableAjout();
-	private JTable tableTags;
+	protected JTextField txbUrl;
+	protected JTextField txbIntitule;
+	protected JTextField txbTag;
+	protected JButton btnAjouter;
+	protected JButton btnSupprimer;
+	protected JButton btnEnregistrer;
+	protected JLabel lblErreur;
+	protected ModeleTableAjout leModele = new ModeleTableAjout();
+	protected JTable tableTags;
 	
 	
 	/* **********************************
 	 * A C C E S S E U R S
 	 * ******************************* */
-	
 	/**
 	 * Retourne l'attribut txbUrl 
 	 * @return L'attribut txbUrl [JTextField]  
@@ -187,9 +186,9 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	 */
 	@Override
 	public void reinitialiser() {
-		txbIntitule.setText("");
-		txbUrl.setText("");
-		txbTag.setText("");
+		txbIntitule.setText(null);
+		txbUrl.setText(null);
+		txbTag.setText(null);
 		leModele.removeAll();
 		txbIntitule.requestFocus();
 	}//fin reinitialiser()
