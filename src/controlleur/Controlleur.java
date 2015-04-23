@@ -151,11 +151,16 @@ public class Controlleur implements ActionListener, MouseListener {
 		//--------------------------------------------------//
 		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPModifier())
 		{
-			//On cache le panel de recherches
-			laFenetre.afficherOuCacherEspacePersonnel(true);
+			//Si le panel n'était pas déjà actif, on va réinitialiser les éléments du formulaire
+			if(laFenetre.getPanelModifier().getIndexDeLUrlAModifier() == 0)
+			{
+				//On cache le panel de recherches
+				laFenetre.afficherOuCacherEspacePersonnel(true);
+				
+				//On affiche le panel d'ajout
+				laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
+			}
 
-			//On affiche le panel d'ajout
-			laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
 			laFenetre.getPanelModifier().setVisible(true);
 			
 			laFenetre.getStatusBar().getLblModuleActif().setText(" Modification ");
@@ -552,11 +557,17 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On affecte la liste des tags associés à l'Url à créer
 			laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).setListeTagsAssocies(listeTagsAssocies);
 			
+			//On modifie les attributs en fonction de ce qu'a renseigné l'utilisateur
+			laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).setIntitule(laFenetre.getPanelModifier().getTxbIntitule().getText());
+			laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).setAdresse(laFenetre.getPanelModifier().getTxbUrl().getText());
+			
 			//On enregistre l'url modifié dans la bdd
 			listeUrl.update(laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()));
 			
 			//On réinitialise le panel
 			laFenetre.getPanelModifier().reinitialiser();
+			//On rafraichit la liste déroulante
+			laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
 			
 			//Puis on affiche un message pour dire que l'insertion a été effectuée
 			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), "Les modifications ont bien été enregistrées !", 0);

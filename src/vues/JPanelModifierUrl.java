@@ -149,4 +149,15 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		leModele.fireTableDataChanged();
 		System.out.println("Nombre de tags du modèle : " + leModele.getListeTags().size() + "\nNombre de tags de l'Url : " + listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies().size());
 	}//fin initialiserPartieModifier
+	
+	/**
+	 * Réinitialise tous les composants du panel
+	 */
+	@Override
+	public void reinitialiser() {
+		txbIntitule.setText(null);
+		txbUrl.setText(null);
+		txbTag.setText(null);
+		leModele.removeAll();
+	}//fin reinitialiser()
 }//fin classe
