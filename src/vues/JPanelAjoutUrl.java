@@ -24,6 +24,7 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	protected JLabel lblErreur;
 	protected ModeleTableAjout leModele = new ModeleTableAjout();
 	protected JTable tableTags;
+	protected JScrollPane scrollPane;
 	
 	
 	/* **********************************
@@ -169,11 +170,10 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		lblErreur = new JLabelErreur();
 		add(lblErreur);
 		
-		
 		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
 		tableTags = new JTable(leModele);
 		
-		JScrollPane scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(340, 150, 370, 230);
 		
 		add(scrollPane);

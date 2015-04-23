@@ -1,8 +1,13 @@
 package vues;
 
 import java.util.List;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.xml.ws.handler.MessageContext.Scope;
+
 import classes.ModeleTableAjout;
 import classes.Url;
 import classes.Utilisateur;
@@ -74,6 +79,13 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		cbbUrls.addActionListener(controlleurPrincipal);
 		add(cbbUrls);
 		
+		tableTags = new JTable(leModele);
+		
+		scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setBounds(340, 150, 370, 230);
+		
+		add(scrollPane);
+		
 		verouillerPartieModifier(true);
 	}//fin constructeur
 	
@@ -112,6 +124,8 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		btnAjouter.setEnabled(!value);
 		btnSupprimer.setEnabled(!value);
 		btnEnregistrer.setEnabled(!value);
+		tableTags.setEnabled(true);
+		scrollPane.setEnabled(true);
 		
 		txbIntitule.setText(null);
 		txbUrl.setText(null);
@@ -126,7 +140,7 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	 */
 	public void initialiserPartieModifier(int index)
 	{
-		super.getTxbIntitule().setText(listeUrlDeLUtilisateur.get(index).getIntitule());
-		super.getTxbUrl().setText(listeUrlDeLUtilisateur.get(index).getAdresse());
+		txbIntitule.setText(listeUrlDeLUtilisateur.get(index).getIntitule());
+		txbUrl.setText(listeUrlDeLUtilisateur.get(index).getAdresse());
 	}//fin initialiserPartieModifier
 }//fin classe

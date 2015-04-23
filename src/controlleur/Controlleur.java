@@ -254,6 +254,12 @@ public class Controlleur implements ActionListener, MouseListener {
 				laFenetre.getPanelModifier().setIndexDeLUrlAModifier(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() - 1);
 				//On va alimenter le formulaire en fonction des attributs du Xième marque page (X <=> numéro de l'item selectionné)
 				laFenetre.getPanelModifier().initialiserPartieModifier(laFenetre.getPanelModifier().getIndexDeLUrlAModifier());
+				
+
+				//On vide la liste d'url
+				laFenetre.getPanelModifier().getLeModele().getListeTags().clear();
+				laFenetre.getPanelModifier().getLeModele().setListeTags(laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).getListeTagsAssocies());
+				laFenetre.getPanelModifier().getLeModele().fireTableDataChanged();
 			}//fin if
 			else
 			{
@@ -265,14 +271,15 @@ public class Controlleur implements ActionListener, MouseListener {
 		//-------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelModifier().getBtnAjouter())
 		{
-			
+			//On ajoute le tag dans le tableau
+			ajouterUnTagModifierUrl();
 		}
 		//---------------------------------------//
 		// Bouton Supprimer - Panel MODIFIER URL //
 		//---------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelModifier().getBtnSupprimer())
 		{
-			
+			supprimerTagsSelectionnesModifierUrl();
 		}
 		//-----------------------------------------//
 		// Bouton Enregistrer - Panel MODIFIER URL //
@@ -408,6 +415,26 @@ public class Controlleur implements ActionListener, MouseListener {
 	}//fin ajouterUnTagAjoutUrl
 	
 	/**
+	 * Ajoute un tag dans le tableau de Tags du panel d'ajout d'Url
+	 */
+	private void ajouterUnTagModifierUrl()
+	{
+		try {
+			//On vérifie que le champ Tag n'est pas vide
+			ErrorManagement.checkEmptyField(laFenetre.getPanelModifier().getTxbTag());
+			
+			//On ajoute le tag au tableau du panel ajouter
+			laFenetre.getPanelModifier().getLeModele().ajouterTag(new Tag(0,laFenetre.getPanelModifier().getTxbTag().getText()));
+			
+			//On vide puis on place le focus à nouveau dans la zone de saisies pour ajouter un tag
+			ErrorManagement.clearAndFocusField(laFenetre.getPanelModifier().getTxbTag());
+		} catch (Exception ex) {
+			//On affiche l'erreur dans le label d'erreurs
+			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), ex.getMessage(), 1);
+		}//fin catch
+	}//fin ajouterUnTagAjoutUrl
+	
+	/**
 	 * Supprime les tags qui sont sélectionnés dans le tableau de Tags du panel d'ajout d'Url. Si il n'y a aucun tag de sélectionné, il sera affiché un avertissement à l'utilisateur
 	 */
 	private void supprimerTagsSelectionnesAjoutUrl()
@@ -427,6 +454,30 @@ public class Controlleur implements ActionListener, MouseListener {
 		else
 		{
 			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Veuillez sélectionner au moins un tag !", 2);
+		}//fin else
+	}//fin supprimerTagsSelectionnes
+	
+	/**
+	 * Supprime les tags qui sont sélectionnés dans le tableau de Tags du panel de modification d'Url.
+	 * Si il n'y a aucun tag de sélectionné, il sera affiché un avertissement à l'utilisateur
+	 */
+	private void supprimerTagsSelectionnesModifierUrl()
+	{
+		//On récupère les index des tags qui sont sélectionnés
+		int[] selection = laFenetre.getPanelModifier().getTableTags().getSelectedRows();
+		
+		//Si la selection est supérieure à 0 on supprime les tags du tableau
+		if(selection.length > 0)
+		{
+			for(int i = selection.length - 1; i >= 0; i--)
+			{
+				laFenetre.getPanelModifier().getLeModele().supprimerTag(selection[i]);
+			}//fin for
+		}//fin if
+		//Sinon on affiche une erreur
+		else
+		{
+			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), "Veuillez sélectionner au moins un tag !", 2);
 		}//fin else
 	}//fin supprimerTagsSelectionnes
 	

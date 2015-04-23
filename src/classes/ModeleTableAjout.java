@@ -15,6 +15,10 @@ public class ModeleTableAjout extends AbstractTableModel {
 		return listeTags;
 	}
 
+	public void setListeTags(List<Tag> listeTags) {
+		this.listeTags = listeTags;
+	}
+
 	/**
 	 * Constructeur par défaut
 	 */
