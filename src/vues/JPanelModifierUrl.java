@@ -73,7 +73,7 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		add(lblSelectionUrl);
 		
 		cbbUrls = new JComboBox<String>();
-		cbbUrls.setBounds(250, 25, 345, 24);
+		cbbUrls.setBounds(235, 25, 380, 24);
 		cbbUrls.addActionListener(controlleurPrincipal);
 		add(cbbUrls);
 		
@@ -147,7 +147,7 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		leModele.removeAll();
 		leModele.setListeTags(new ArrayList<Tag>(listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies()));
 		leModele.fireTableDataChanged();
-		System.out.println("Nombre de tags du modèle : " + leModele.getListeTags().size() + "\nNombre de tags de l'Url : " + listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies().size());
+//		System.out.println("Nombre de tags du modèle : " + leModele.getListeTags().size() + "\nNombre de tags de l'Url : " + listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies().size());
 	}//fin initialiserPartieModifier
 	
 	/**

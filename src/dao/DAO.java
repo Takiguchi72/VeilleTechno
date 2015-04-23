@@ -14,7 +14,7 @@ public abstract class DAO<T> {
 	/* **********
 	 * Attributes
 	 ************/
-	public Connection connect = ConnexionPostgreSQL.getInstance();
+	public Connection connect = SgtConnexionPgSql.getInstance();
 
 	/* *******
 	 * Methods

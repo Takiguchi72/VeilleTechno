@@ -104,7 +104,6 @@ public class Controlleur implements ActionListener, MouseListener {
 			{
 				//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
 				afficherOuCacherPanelConnexion(false);
-				
 			}
 			else
 			{
@@ -153,12 +152,14 @@ public class Controlleur implements ActionListener, MouseListener {
 			//Si le panel n'était pas déjà actif, on va réinitialiser les éléments du formulaire
 			if(laFenetre.getPanelModifier().getIndexDeLUrlAModifier() == 0)
 			{
-				//On cache le panel de recherches
-				laFenetre.afficherOuCacherEspacePersonnel(true);
+				
 				
 				//On affiche le panel d'ajout
 				laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
-			}
+			}//fin if
+
+			//On cache le panel de recherches
+			laFenetre.afficherOuCacherEspacePersonnel(true);
 
 			laFenetre.getPanelModifier().setVisible(true);
 			
