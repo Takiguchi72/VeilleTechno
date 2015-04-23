@@ -1,7 +1,6 @@
 package controlleur;
 
 import static util.FonctionsString.md5;
-
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -1,16 +1,11 @@
 package vues;
 
-import java.awt.Color;
-import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-
 import classes.JLabelErreur;
 import classes.JTableRechercher;
 import classes.ModeleTableRechercher;

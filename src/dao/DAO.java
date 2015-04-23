@@ -8,8 +8,6 @@ package dao;
 
 import java.sql.Connection;
 import java.util.List;
-
-import classes.Tag;
 import classes.Utilisateur;
 
 public abstract class DAO<T> {

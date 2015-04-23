@@ -1,18 +1,14 @@
 package vues;
 
 import java.awt.Font;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import classes.JLabelErreur;
 import controlleur.Controlleur;
-
-import java.awt.Color;
 
 public class JPanelConnexion extends JPanel implements JPanelPersonnalise{
 	/* **********************************

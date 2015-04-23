@@ -3,8 +3,6 @@ package vues;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.util.Enumeration;
-
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -18,8 +16,6 @@ public class JStatusBar extends JPanel {
 	private JLabel lblModuleActif;
 	private JLabel image;
 	private JLabel lblImage;
-	
-	
 	
 	public JLabel getLblModuleActif() {
 		return lblModuleActif;
