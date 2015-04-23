@@ -1,14 +1,13 @@
 package vues;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.xml.ws.handler.MessageContext.Scope;
 
-import classes.ModeleTableAjout;
+import classes.ModeleTableModifier;
+import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
 import controlleur.Controlleur;
@@ -20,7 +19,7 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	 * ******************************* */
 	protected JComboBox<String> cbbUrls;
 	protected List<Url> listeUrlDeLUtilisateur;
-	protected int IndexDeLUrlAModifier = 0;
+	protected int indexDeLUrlAModifier = 0;
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -46,11 +45,11 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	}
 
 	public int getIndexDeLUrlAModifier() {
-		return IndexDeLUrlAModifier;
+		return indexDeLUrlAModifier;
 	}
 
 	public void setIndexDeLUrlAModifier(int indexDeLUrlAModifier) {
-		IndexDeLUrlAModifier = indexDeLUrlAModifier;
+		this.indexDeLUrlAModifier = indexDeLUrlAModifier;
 	}
 
 	/* **********************************
@@ -63,7 +62,6 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	public JPanelModifierUrl(Controlleur controlleurPrincipal)
 	{
 		super(controlleurPrincipal);
-		leModele = new ModeleTableAjout();
 		
 		txbUrl.setBounds(150, 90, 480, 19);
 		txbIntitule.setBounds(150, 60, 480, 19);
@@ -79,12 +77,10 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		cbbUrls.addActionListener(controlleurPrincipal);
 		add(cbbUrls);
 		
-		tableTags = new JTable(leModele);
+		initialiserLeModele();
 		
-		scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(340, 150, 370, 230);
-		
-		add(scrollPane);
+		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
+		tableTags.setModel(leModele);
 		
 		verouillerPartieModifier(true);
 	}//fin constructeur
@@ -124,8 +120,6 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		btnAjouter.setEnabled(!value);
 		btnSupprimer.setEnabled(!value);
 		btnEnregistrer.setEnabled(!value);
-		tableTags.setEnabled(true);
-		scrollPane.setEnabled(true);
 		
 		txbIntitule.setText(null);
 		txbUrl.setText(null);
@@ -133,6 +127,12 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		leModele.removeAll();
 		lblErreur.setVisible(false);
 	}//verouillerPartieModifier
+	
+	@Override
+	protected void initialiserLeModele()
+	{
+		leModele = new ModeleTableModifier();
+	}
 	
 	/**
 	 * Initialise les zones de saisies à partir du marque page sélectionné dans la liste déroulante
@@ -142,5 +142,11 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	{
 		txbIntitule.setText(listeUrlDeLUtilisateur.get(index).getIntitule());
 		txbUrl.setText(listeUrlDeLUtilisateur.get(index).getAdresse());
+		
+		//On vide la liste d'url
+		leModele.removeAll();
+		leModele.setListeTags(new ArrayList<Tag>(listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies()));
+		leModele.fireTableDataChanged();
+		System.out.println("Nombre de tags du modèle : " + leModele.getListeTags().size() + "\nNombre de tags de l'Url : " + listeUrlDeLUtilisateur.get(indexDeLUrlAModifier).getListeTagsAssocies().size());
 	}//fin initialiserPartieModifier
 }//fin classe

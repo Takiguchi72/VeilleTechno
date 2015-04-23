@@ -9,9 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
-
 import vues.FenetrePrincipale;
-import vues.JPanelRechercher;
 import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
@@ -254,12 +252,6 @@ public class Controlleur implements ActionListener, MouseListener {
 				laFenetre.getPanelModifier().setIndexDeLUrlAModifier(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() - 1);
 				//On va alimenter le formulaire en fonction des attributs du Xième marque page (X <=> numéro de l'item selectionné)
 				laFenetre.getPanelModifier().initialiserPartieModifier(laFenetre.getPanelModifier().getIndexDeLUrlAModifier());
-				
-
-				//On vide la liste d'url
-				laFenetre.getPanelModifier().getLeModele().getListeTags().clear();
-				laFenetre.getPanelModifier().getLeModele().setListeTags(laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).getListeTagsAssocies());
-				laFenetre.getPanelModifier().getLeModele().fireTableDataChanged();
 			}//fin if
 			else
 			{
@@ -567,9 +559,9 @@ public class Controlleur implements ActionListener, MouseListener {
 			laFenetre.getPanelModifier().reinitialiser();
 			
 			//Puis on affiche un message pour dire que l'insertion a été effectuée
-			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Les modifications ont bien été enregistrées !", 0);
+			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), "Les modifications ont bien été enregistrées !", 0);
 		} catch (Exception ex) {
-			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
+			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), ex.getMessage(), 1);
 		}
 	}//fin modifierUrl
 }//fin classe

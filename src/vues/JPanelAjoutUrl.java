@@ -22,7 +22,7 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	protected JButton btnSupprimer;
 	protected JButton btnEnregistrer;
 	protected JLabel lblErreur;
-	protected ModeleTableAjout leModele = new ModeleTableAjout();
+	protected ModeleTableAjout leModele;
 	protected JTable tableTags;
 	protected JScrollPane scrollPane;
 	
@@ -170,6 +170,8 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		lblErreur = new JLabelErreur();
 		add(lblErreur);
 		
+		initialiserLeModele();
+		
 		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
 		tableTags = new JTable(leModele);
 		
@@ -181,6 +183,11 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		txbIntitule.requestFocus();
 	}//fin constructeur
 
+	protected void initialiserLeModele()
+	{
+		leModele = new ModeleTableAjout();
+	}
+	
 	/**
 	 * Réinitialise tous les composants du panel
 	 */
