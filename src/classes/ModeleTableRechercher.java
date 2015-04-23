@@ -80,18 +80,7 @@ public class ModeleTableRechercher extends AbstractTableModel {
 		}//fin switch
 	}//fin getValueAt
 	
-	/**
-	 * Supprime tous les éléments de la liste
-	 */
-	private void removeAll()
-	{
-		//On supprime chaque élément de la liste
-		for(int i = 0 ; i < listeUrls.size() ; i++)
-		{
-			listeUrls.remove(i);
-		}//fin for
-	}//fin removeAll
-	
+
 	/**
 	 * Réinitialise la liste d'Urls en fonction des critères de recherche passées en paramètre via la variable "recherche"
 	 * @param controlleurPrincipal

@@ -13,8 +13,9 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
-	private JComboBox<String> cbbUrls;
-	private List<Url> listeUrlDeLUtilisateur;
+	protected JComboBox<String> cbbUrls;
+	protected List<Url> listeUrlDeLUtilisateur;
+	protected int IndexDeLUrlAModifier = 0;
 	
 	/* **********************************
 	 * A C C E S S E U R S
@@ -33,6 +34,18 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	 */
 	public List<Url> getListeUrlDeLUtilisateur() {
 		return listeUrlDeLUtilisateur;
+	}
+
+	public void setListeUrlDeLUtilisateur(List<Url> listeUrlDeLUtilisateur) {
+		this.listeUrlDeLUtilisateur = listeUrlDeLUtilisateur;
+	}
+
+	public int getIndexDeLUrlAModifier() {
+		return IndexDeLUrlAModifier;
+	}
+
+	public void setIndexDeLUrlAModifier(int indexDeLUrlAModifier) {
+		IndexDeLUrlAModifier = indexDeLUrlAModifier;
 	}
 
 	/* **********************************

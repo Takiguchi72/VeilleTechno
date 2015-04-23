@@ -67,6 +67,10 @@ public class FenetrePrincipale extends JFrame {
 		return panelModifier;
 	}
 
+	public JStatusBar getStatusBar() {
+		return statusBar;
+	}
+
 	/* **********************************
 	 * C O N S T R U C T E U R S
 	 * ******************************* */

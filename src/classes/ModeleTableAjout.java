@@ -8,8 +8,8 @@ public class ModeleTableAjout extends AbstractTableModel {
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
-	private List<Tag> listeTags;
-	private final String[] entetes = { "Libellé" };
+	protected List<Tag> listeTags;
+	protected final String[] entetes = { "Mots - clefs" };
 	
 	public List<Tag> getListeTags() {
 		return listeTags;

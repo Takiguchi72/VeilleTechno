@@ -1,6 +1,7 @@
 package controlleur;
 
 import static util.FonctionsString.md5;
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +9,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+
 import vues.FenetrePrincipale;
+import vues.JPanelRechercher;
 import classes.Tag;
 import classes.Url;
 import classes.Utilisateur;
@@ -92,6 +95,8 @@ public class Controlleur implements ActionListener, MouseListener {
 		{
 			//On affiche le pannel de connexion
 			afficherOuCacherPanelConnexion(true);
+			
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Connexion ");
 		}//fin else if
 		//----------------------------------//
 		// Bouton CONSULTER - Barre de Menu //
@@ -101,12 +106,14 @@ public class Controlleur implements ActionListener, MouseListener {
 			if(utilisateurConnecte.getIdentifiant().equals(""))
 			{
 				//On cache le pannel de connexion et on affiche le pannel pour consulter les marques-page
-				afficherOuCacherPanelConnexion(false);				
+				afficherOuCacherPanelConnexion(false);
+				
 			}
 			else
 			{
 				laFenetre.afficherOuCacherEspacePersonnel(false);
 			}
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Recherches ");
 		}//fin else if
 		//---------------------------------------// 
 		// Bouton SE DÉCONNECTER - Barre de Menu //
@@ -116,12 +123,17 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On modifie la barre de menu
 			laFenetre.getLaBarreDeMenu().etatUtilisateurConnecte(false);
 			
+			//On modifie la barre de status
+			laFenetre.getStatusBar().setConnecte(false);
+			
 			//On réinitialise les modules liées à l'espace personnel
 			laFenetre.reinitialiserEspacePersonnel();
 			laFenetre.getLaBarreDeMenu().getMnitConsulter().setVisible(false);
 
 			//On réinitialise l'utilisateur
 			utilisateurConnecte = new Utilisateur();
+			
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Recherches ");
 		}//fin else if
 		//-------------------------------------------------//
 		// Bouton AJOUTER DES MARQUES-PAGE - Barre de Menu //
@@ -133,6 +145,8 @@ public class Controlleur implements ActionListener, MouseListener {
 			
 			//On affiche le panel d'ajout
 			laFenetre.getPanelAjout().setVisible(true);
+			
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Ajout ");
 		}//fin else if
 		//--------------------------------------------------//
 		// Bouton MODIFIER DES MARQUES-PAGE - Barre de Menu //
@@ -145,6 +159,8 @@ public class Controlleur implements ActionListener, MouseListener {
 			//On affiche le panel d'ajout
 			laFenetre.getPanelModifier().reinitialiserCombobox(utilisateurConnecte);
 			laFenetre.getPanelModifier().setVisible(true);
+			
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Modification ");
 		}//fin else if
 		//------------------------------------//
 		// Bouton CONNEXION - Panel CONNEXION //
@@ -166,8 +182,10 @@ public class Controlleur implements ActionListener, MouseListener {
 				laFenetre.getLaBarreDeMenu().getMnitConnexion().setVisible(false);
 				
 				//On affiche le menu pour gérer son espace personnel
-				
 				laFenetre.getLaBarreDeMenu().etatUtilisateurConnecte(true);
+				laFenetre.getStatusBar().setConnecte(true);
+				
+				laFenetre.getStatusBar().getLblModuleActif().setText(" Recherches ");
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);
@@ -232,14 +250,37 @@ public class Controlleur implements ActionListener, MouseListener {
 			if(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() > 0)
 			{
 				laFenetre.getPanelModifier().verouillerPartieModifier(false);
+				
+				laFenetre.getPanelModifier().setIndexDeLUrlAModifier(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() - 1);
 				//On va alimenter le formulaire en fonction des attributs du Xième marque page (X <=> numéro de l'item selectionné)
-				laFenetre.getPanelModifier().initialiserPartieModifier(laFenetre.getPanelModifier().getCbbUrls().getSelectedIndex() - 1);
+				laFenetre.getPanelModifier().initialiserPartieModifier(laFenetre.getPanelModifier().getIndexDeLUrlAModifier());
 			}//fin if
 			else
 			{
 				laFenetre.getPanelModifier().verouillerPartieModifier(true);
 			}//fin else
 		}//fin else if
+		//-------------------------------------//
+		// Bouton AJOUTER - Panel MODIFIER URL //
+		//-------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelModifier().getBtnAjouter())
+		{
+			
+		}
+		//---------------------------------------//
+		// Bouton Supprimer - Panel MODIFIER URL //
+		//---------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelModifier().getBtnSupprimer())
+		{
+			
+		}
+		//-----------------------------------------//
+		// Bouton Enregistrer - Panel MODIFIER URL //
+		//-----------------------------------------//		
+		else if(e.getSource() == laFenetre.getPanelModifier().getBtnEnregistrer())
+		{
+			modifierUrl();
+		}
 	}//fin actionPerformed
 	
 	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *
@@ -437,4 +478,47 @@ public class Controlleur implements ActionListener, MouseListener {
 			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
 		}
 	}//fin enregistrerNouvelleUrl
+	
+	private void modifierUrl()
+	{
+		try {
+			//On vérifie que les zones de saisies ne sont pas vides
+			ErrorManagement.checkEmptyField(laFenetre.getPanelModifier().getTxbIntitule());
+			ErrorManagement.checkEmptyField(laFenetre.getPanelModifier().getTxbUrl());
+			
+			// INSERTION DE NOUVEAUX TAGS DANS LA BDD
+			//On créer une liste de tags vide pour l'affecter par la suite à l'url qu'on va modifier
+			List<Tag> listeTagsAssocies = new ArrayList<Tag>();
+			
+			//Pour chaque tag dans la liste, on va vérifier qu'il existe dans la bdd
+			//Si ce n'est pas le cas, on va le créer
+			for(int i = 0 ; i < laFenetre.getPanelModifier().getLeModele().getListeTags().size() ; i++)
+			{
+				//On créer un tag temporaire pour vérifier s'il faut le créer en bdd
+				Tag tagTemp = listeTag.read(laFenetre.getPanelModifier().getLeModele().getListeTags().get(i));
+				
+				//S'il n'existe pas, on va l'insérer dans la base
+				if(tagTemp.getId() == 0)
+				{
+					tagTemp = listeTag.create(laFenetre.getPanelModifier().getLeModele().getListeTags().get(i));															// À VÉRIFIER !!!!!!!
+				}//fin if
+				
+				listeTagsAssocies.add(tagTemp);
+			}//fin for
+			
+			//On affecte la liste des tags associés à l'Url à créer
+			laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()).setListeTagsAssocies(listeTagsAssocies);
+			
+			//On enregistre l'url modifié dans la bdd
+			listeUrl.update(laFenetre.getPanelModifier().getListeUrlDeLUtilisateur().get(laFenetre.getPanelModifier().getIndexDeLUrlAModifier()));
+			
+			//On réinitialise le panel
+			laFenetre.getPanelModifier().reinitialiser();
+			
+			//Puis on affiche un message pour dire que l'insertion a été effectuée
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), "Les modifications ont bien été enregistrées !", 0);
+		} catch (Exception ex) {
+			ErrorManagement.showError(laFenetre.getPanelAjout().getLblErreur(), ex.getMessage(), 1);
+		}
+	}//fin modifierUrl
 }//fin classe
