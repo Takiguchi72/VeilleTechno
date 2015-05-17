@@ -15,6 +15,13 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
     /* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
+	protected JLabel lblIntitule;
+	protected JLabel lblUrl;
+	protected JLabel lblTags;
+	protected JLabel lblSelectUnTag;
+	protected JLabel lblCliquerIci;
+	protected JLabel lblPourLeSuppr;
+	
 	protected JTextField txbUrl;
 	protected JTextField txbIntitule;
 	protected JTextField txbTag;
@@ -112,73 +119,73 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 	{
 		setLayout(null);
 		
-		JLabel lblIntitule = new JLabel("Intitulé :");
-		lblIntitule.setBounds(45, 62, 70, 15);
+		lblIntitule = new JLabel("Intitulé :");
+		lblIntitule.setBounds(95, 22, 70, 15);
 		add(lblIntitule);
 		
 		txbIntitule = new JTextField();
-		txbIntitule.setBounds(150, 60, 380, 19);
+		txbIntitule.setBounds(200, 20, 380, 19);
 		txbIntitule.setName("Intitulé");
 		add(txbIntitule);
 		
-		JLabel lblUrl = new JLabel("Adresse URL :");
-		lblUrl.setBounds(45, 92, 110, 15);
+		lblUrl = new JLabel("Adresse URL :");
+		lblUrl.setBounds(95, 52, 110, 15);
 		add(lblUrl);
 		
 		txbUrl = new JTextField();
-		txbUrl.setBounds(150, 90, 380, 19);
+		txbUrl.setBounds(200, 50, 380, 19);
 		txbUrl.setName("Adresse URL");
 		add(txbUrl);
 		
-		JLabel lblTags = new JLabel("Tag :");
+		lblTags = new JLabel("Tag :");
 		lblTags.setOpaque(true);
-		lblTags.setBounds(80, 162, 40, 15);
+		lblTags.setBounds(80, 102, 40, 15);
 		add(lblTags);
 		
 		txbTag = new JTextField();
-		txbTag.setBounds(120, 160, 181, 19);
+		txbTag.setBounds(120, 100, 180, 19);
 		txbTag.setName("Tag");
 		add(txbTag);
 		
 		btnAjouter = new JButton("Ajouter");
-		btnAjouter.setBounds(190, 190, 100, 19);
+		btnAjouter.setBounds(190, 130, 100, 19);
 		btnAjouter.addActionListener(controlleurPrincipal);
 		add(btnAjouter);
 		
-		JLabel lblSelectUnTag = new JLabel("Sélectionnez un tag,");
-		lblSelectUnTag.setBounds(60, 260, 175, 15);
+		lblSelectUnTag = new JLabel("Sélectionnez un tag,");
+		lblSelectUnTag.setBounds(60, 200, 175, 15);
 		add(lblSelectUnTag);
 		
-		JLabel lblCliquerIci = new JLabel("puis cliquez ici :");
-		lblCliquerIci.setBounds(60, 290, 118, 15);
+		lblCliquerIci = new JLabel("puis cliquez ici :");
+		lblCliquerIci.setBounds(60, 230, 118, 15);
 		add(lblCliquerIci);
 		
 		btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setBounds(180, 288, 110, 19);
+		btnSupprimer.setBounds(180, 228, 110, 19);
 		btnSupprimer.addActionListener(controlleurPrincipal);
 		add(btnSupprimer);
 		
-		JLabel lblPourLeSuppr = new JLabel("pour le supprimer de la liste");
-		lblPourLeSuppr.setBounds(60, 320, 205, 15);
+		lblPourLeSuppr = new JLabel("pour le supprimer de la liste");
+		lblPourLeSuppr.setBounds(60, 260, 205, 15);
 		add(lblPourLeSuppr);
 		
 		btnEnregistrer = new JButton("Enregistrer");
-		btnEnregistrer.setBounds(470, 400, 125, 25);
+		btnEnregistrer.setBounds(470, 340, 125, 25);
 		btnEnregistrer.addActionListener(controlleurPrincipal);
 		add(btnEnregistrer);
-		
-		lblErreur = new JLabelErreur();
-		add(lblErreur);
-		
-		initialiserLeModele();
 		
 		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
 		tableTags = new JTable(leModele);
 		
 		scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setBounds(340, 150, 370, 230);
+		scrollPane.setBounds(340, 90, 370, 230);
 		
 		add(scrollPane);
+		
+		lblErreur = new JLabelErreur();
+		add(lblErreur);
+		
+		initialiserLeModele();
 		
 		txbIntitule.requestFocus();
 	}//fin constructeur

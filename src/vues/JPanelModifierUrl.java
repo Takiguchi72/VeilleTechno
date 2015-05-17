@@ -3,8 +3,10 @@ package vues;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 import classes.ModeleTableModifier;
 import classes.Tag;
@@ -63,17 +65,14 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 	{
 		super(controlleurPrincipal);
 		
-		txbUrl.setBounds(150, 90, 480, 19);
-		txbIntitule.setBounds(150, 60, 480, 19);
-		
 		listeUrlDeLUtilisateur = controlleurPrincipal.getListeUrl().selectDe(controlleurPrincipal.getUtilisateurConnecte());
 		
 		JLabel lblSelectionUrl = new JLabel("Selectionnez une Url :");
-		lblSelectionUrl.setBounds(70, 30, 176, 15);
+		lblSelectionUrl.setBounds(70, 20, 176, 15);
 		add(lblSelectionUrl);
 		
 		cbbUrls = new JComboBox<String>();
-		cbbUrls.setBounds(235, 25, 380, 24);
+		cbbUrls.setBounds(235, 15, 380, 24);
 		cbbUrls.addActionListener(controlleurPrincipal);
 		add(cbbUrls);
 		
@@ -83,6 +82,8 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		tableTags.setModel(leModele);
 		
 		verouillerPartieModifier(true);
+		
+		replacerLaPartieParent();
 	}//fin constructeur
 	
 	/* **********************************
@@ -160,4 +161,44 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		txbTag.setText(null);
 		leModele.removeAll();
 	}//fin reinitialiser()
+	
+	protected void replacerLaPartieParent()
+	{
+		replacerJLabel(lblIntitule);
+		replacerJTextField(txbIntitule);
+		
+		replacerJLabel(lblUrl);
+		replacerJTextField(txbUrl);
+		
+		replacerJLabel(lblTags);
+		replacerJTextField(txbTag);
+		replacerJButton(btnAjouter);
+		
+		replacerJLabel(lblSelectUnTag);
+		replacerJLabel(lblCliquerIci);
+		replacerJButton(btnSupprimer);
+		replacerJLabel(lblPourLeSuppr);
+		
+		//scrollPane.setAlignmentY(scrollPane.getAlignmentY() + 30);
+		scrollPane.setBounds(340, 120, 370, 230);
+		//(340, 90, 370, 230);
+		replacerJButton(btnEnregistrer);
+	}
+	
+	protected void replacerJLabel(JLabel label)
+	{
+		label.setLocation(label.getLocation().x, label.getLocation().y + 30);
+		//label.setAlignmentY(label.getAlignmentY() + 30);
+	}
+	
+	protected void replacerJTextField(JTextField textField)
+	{
+		textField.setLocation(textField.getLocation().x, textField.getLocation().y + 30);
+	}
+	
+	protected void replacerJButton(JButton button)
+	{
+		button.setLocation(button.getLocation().x, button.getLocation().y + 30);
+		//button.setAlignmentY(button.getAlignmentY() + 30);
+	}
 }//fin classe
