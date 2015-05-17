@@ -1,6 +1,7 @@
 package controlleur;
 
 import static util.FonctionsString.md5;
+
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.ErrorManager;
+
 import vues.FenetrePrincipale;
 import classes.Tag;
 import classes.Url;
@@ -165,6 +168,17 @@ public class Controlleur implements ActionListener, MouseListener {
 			
 			laFenetre.getStatusBar().getLblModuleActif().setText(" Modification ");
 		}//fin else if
+		
+		else if(e.getSource() == laFenetre.getLaBarreDeMenu().getMnitEPSupprimer())
+		{
+			//On cache le panel de recherches
+			laFenetre.afficherOuCacherEspacePersonnel(true);
+
+			laFenetre.getPanelSupprimer().setVisible(true);
+			laFenetre.getPanelSupprimer().reinitialiserCombobox(utilisateurConnecte);
+			
+			laFenetre.getStatusBar().getLblModuleActif().setText(" Suppression ");
+		}
 		//------------------------------------//
 		// Bouton CONNEXION - Panel CONNEXION //
 		//------------------------------------//
@@ -270,21 +284,63 @@ public class Controlleur implements ActionListener, MouseListener {
 		{
 			//On ajoute le tag dans le tableau
 			ajouterUnTagModifierUrl();
-		}
+		}//fin else if
 		//---------------------------------------//
 		// Bouton Supprimer - Panel MODIFIER URL //
 		//---------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelModifier().getBtnSupprimer())
 		{
 			supprimerTagsSelectionnesModifierUrl();
-		}
+		}//fin else if
 		//-----------------------------------------//
 		// Bouton Enregistrer - Panel MODIFIER URL //
-		//-----------------------------------------//		
+		//-----------------------------------------//
 		else if(e.getSource() == laFenetre.getPanelModifier().getBtnEnregistrer())
 		{
 			modifierUrl();
-		}
+		}//fin else if
+		//----------------------------------------//
+		// Bouton Supprimer - Panel SUPPRIMER URL //
+		//----------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelSupprimer().getBtnSupprimer())
+		{
+			try {
+				//Si la liste déroulante est placée sur le 1er choix, on lève une exception
+				if(laFenetre.getPanelSupprimer().getCbbUrls().getSelectedIndex() == 0)
+				{
+					throw new Exception("Veuillez sélectionner le marque page à supprimer !", new Throwable("noSelection"));
+				}//fin if
+				
+				laFenetre.getPanelSupprimer().getLblMPIntitule().setText(laFenetre.getPanelSupprimer().getListeUrlDeLUtilisateur().get(laFenetre.getPanelSupprimer().getCbbUrls().getSelectedIndex() - 1).getIntitule());
+				laFenetre.getPanelSupprimer().getLblMPAdresse().setText(laFenetre.getPanelSupprimer().getListeUrlDeLUtilisateur().get(laFenetre.getPanelSupprimer().getCbbUrls().getSelectedIndex() - 1).getAdresse());
+				
+				laFenetre.getPanelSupprimer().afficherPartieValidation(true);
+			} catch (Exception ex) {
+				ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreurs(), ex.getMessage(), 2);
+			}//fin catch
+		}//fin else if
+		//--------------------------------------//
+		// Bouton Annuler - Panel SUPPRIMER URL //
+		//--------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelSupprimer().getBtnAnnuler())
+		{
+			laFenetre.getPanelSupprimer().afficherPartieValidation(false);
+		}//fin else if
+		//--------------------------------------//
+		// Bouton Valider - Panel SUPPRIMER URL //
+		//--------------------------------------//
+		else if(e.getSource() == laFenetre.getPanelSupprimer().getBtnValider())
+		{
+			//On supprime dans la bdd le marque page choisi par l'utilisateur
+			listeUrl.delete(laFenetre.getPanelSupprimer().getListeUrlDeLUtilisateur().get(laFenetre.getPanelSupprimer().getCbbUrls().getSelectedIndex() - 1));
+			
+			//On réinitialise la liste déroulante pour enlever de la liste le marque page que l'utilisateur vient de supprimer
+			laFenetre.getPanelSupprimer().reinitialiserCombobox(utilisateurConnecte);
+			
+			//On réinitialise le panel et on affiche un message pour signaler la suppression
+			laFenetre.getPanelSupprimer().afficherPartieValidation(false);
+			ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreurs(), "Le marque page vient d'être supprimé !", 0);
+		}//fin else if
 	}//fin actionPerformed
 	
 	/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ *

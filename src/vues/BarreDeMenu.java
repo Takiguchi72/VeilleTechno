@@ -136,6 +136,7 @@ public class BarreDeMenu extends JMenuBar {
 			//Définition des boutons du menu "Espace personnel" de la barre de menu
 			mnitEPConsulter = new JMenuItem("Consulter mes marques-page");
 			mnitEPConsulter.addActionListener(controlleurPrincipal);
+			mnitEPConsulter.setVisible(false);
 			mnEspacePersonnel.add(mnitEPConsulter);
 	
 			mnitEPAjouter = new JMenuItem("Ajouter des marques-page");

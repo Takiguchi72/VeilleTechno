@@ -16,6 +16,7 @@ public class FenetrePrincipale extends JFrame {
 	private JPanelRechercher 	panelRecherche;
 	private JPanelAjoutUrl 		panelAjout;
 	private JPanelModifierUrl 	panelModifier;
+	private JPanelSupprimerUrl 	panelSupprimer;
 	private JStatusBar			statusBar;
 	
 	/* **********************************
@@ -63,6 +64,10 @@ public class FenetrePrincipale extends JFrame {
 		return panelModifier;
 	}
 
+	public JPanelSupprimerUrl getPanelSupprimer() {
+		return panelSupprimer;
+	}
+
 	public JStatusBar getStatusBar() {
 		return statusBar;
 	}
@@ -91,23 +96,31 @@ public class FenetrePrincipale extends JFrame {
 		panelConnexion.setVisible(false);
 		
 		add(panelConnexion);
+		
 		//Ajout de la fenetre de recherche
 		panelRecherche = new JPanelRechercher(controlleurPrincipal);
 		panelRecherche.setBounds(0, 0, 795, 461);
 		panelRecherche.setVisible(true);
 		
 		add(panelRecherche);
+		
 		//Ajout de la fenetre d'ajout de marque page
 		panelAjout = new JPanelAjoutUrl(controlleurPrincipal);
 		panelAjout.setBounds(0, 0, 795, 461);
 		panelAjout.setVisible(false);
 		
 		add(panelAjout);
+		
 		//Ajout de la fenetre de modification de marque page
 		panelModifier = new JPanelModifierUrl(controlleurPrincipal);
 		panelModifier.setBounds(5,5,788,456);
 		panelModifier.setVisible(false);
-		getContentPane().add(panelModifier);
+		add(panelModifier);
+		
+		panelSupprimer = new JPanelSupprimerUrl(controlleurPrincipal);
+		panelSupprimer.setBounds(5,5,788,456);
+		panelSupprimer.setVisible(false);
+		add(panelSupprimer);
 		
 		statusBar = new JStatusBar();
 		statusBar.setVisible(true);

@@ -9,7 +9,7 @@ public class ErrorManagement {
 	 * It will adapt the error color in terms of the error level then it will show it
 	 * @param The error label which need to be modified [JLabel]
 	 * @param The error message to show [String]
-	 * @param The error level ; 0:Error (red); 1:Warning (orange) ; Else:Error
+	 * @param The error level ; 0:Message(green); 1:Error (red); 2:Warning (orange) ; Else:Error
 	 */
 	public static void showError(JLabel label, String message, int errorLevel)
 	{
