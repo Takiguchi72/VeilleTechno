@@ -5,6 +5,8 @@ import static util.FonctionsString.md5;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -20,7 +22,7 @@ import dao.TagDAO;
 import dao.UrlDAO;
 import dao.UtilisateurDAO;
 
-public class Controlleur implements ActionListener, MouseListener {
+public class Controlleur implements ActionListener, MouseListener , KeyListener{
 	/* **********************************
 	 * A T T R I B U T S
 	 * ******************************* */
@@ -81,6 +83,7 @@ public class Controlleur implements ActionListener, MouseListener {
 	 */
 	public void actionPerformed(ActionEvent e)
 	{
+		reinitialiserLesLabelsDErreur();
 		//--------------------------------//
 		// Bouton QUITTER - Barre de Menu //
 		//--------------------------------//
@@ -190,7 +193,14 @@ public class Controlleur implements ActionListener, MouseListener {
 				ErrorManagement.checkEmptyField(laFenetre.getPanelConnexion().getPswdField());
 				
 				//On vérifie que les IDs saisis correspondent à un utilisateur de la base
-				checkIdentifiants(laFenetre.getPanelConnexion().getTxbIdentifiant().getText(), String.valueOf(laFenetre.getPanelConnexion().getPswdField().getPassword()));
+				try {
+					checkIdentifiants(laFenetre.getPanelConnexion().getTxbIdentifiant().getText(), String.valueOf(laFenetre.getPanelConnexion().getPswdField().getPassword()));
+				} catch (Exception ex) {
+					//Si les IDs sont incorrects, on efface les zones de saisies et on relève l'exception
+					ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getPswdField());
+					ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getTxbIdentifiant());
+					throw ex;
+				}//fin catch
 				
 				//On cache le panel de connexion
 				afficherOuCacherPanelConnexion(false);
@@ -206,8 +216,6 @@ public class Controlleur implements ActionListener, MouseListener {
 			} catch (Exception ex) {
 				//On affiche l'erreur dans le label d'erreurs
 				ErrorManagement.showError(laFenetre.getPanelConnexion().getLblErreur(), ex.getMessage(), 1);
-				ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getPswdField());
-				ErrorManagement.clearAndFocusField(laFenetre.getPanelConnexion().getTxbIdentifiant());
 			}//fin catch
 		}//fin else if
 		//--------------------------------------//
@@ -316,7 +324,7 @@ public class Controlleur implements ActionListener, MouseListener {
 				
 				laFenetre.getPanelSupprimer().afficherPartieValidation(true);
 			} catch (Exception ex) {
-				ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreurs(), ex.getMessage(), 2);
+				ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreur(), ex.getMessage(), 2);
 			}//fin catch
 		}//fin else if
 		//--------------------------------------//
@@ -339,7 +347,7 @@ public class Controlleur implements ActionListener, MouseListener {
 			
 			//On réinitialise le panel et on affiche un message pour signaler la suppression
 			laFenetre.getPanelSupprimer().afficherPartieValidation(false);
-			ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreurs(), "Le marque page vient d'être supprimé !", 0);
+			ErrorManagement.showError(laFenetre.getPanelSupprimer().getLblErreur(), "Le marque page vient d'être supprimé !", 0);
 		}//fin else if
 	}//fin actionPerformed
 	
@@ -631,4 +639,52 @@ public class Controlleur implements ActionListener, MouseListener {
 			ErrorManagement.showError(laFenetre.getPanelModifier().getLblErreur(), ex.getMessage(), 1);
 		}
 	}//fin modifierUrl
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		if(e.getKeyCode() == KeyEvent.VK_ENTER)
+		{
+			switch(laFenetre.getStatusBar().getLblModuleActif().getText())
+			{
+			case " Recherches ":
+				laFenetre.getPanelRecherche().getBtnRechercher().doClick();
+				break;
+			case " Connexion ":
+				laFenetre.getPanelConnexion().getBtnConnexion().doClick();
+				break;
+			case " Ajout ":
+				if(laFenetre.getPanelAjout().getTxbTag().isFocusOwner())
+				{
+					laFenetre.getPanelAjout().getBtnAjouter().doClick();
+				}
+				break;
+			case " Modification ":
+				if(laFenetre.getPanelModifier().getTxbTag().isFocusOwner())
+				{
+					laFenetre.getPanelModifier().getBtnAjouter().doClick();
+				}
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		
+	}
+	
+	private void reinitialiserLesLabelsDErreur()
+	{
+		ErrorManagement.hideErrorField(laFenetre.getPanelRecherche().getLblErreur());
+		ErrorManagement.hideErrorField(laFenetre.getPanelAjout().getLblErreur());
+		ErrorManagement.hideErrorField(laFenetre.getPanelModifier().getLblErreur());
+		ErrorManagement.hideErrorField(laFenetre.getPanelSupprimer().getLblErreur());
+		ErrorManagement.hideErrorField(laFenetre.getPanelConnexion().getLblErreur());
+	}
 }//fin classe

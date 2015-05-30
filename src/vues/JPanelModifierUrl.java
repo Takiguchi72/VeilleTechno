@@ -76,6 +76,8 @@ public class JPanelModifierUrl extends JPanelAjoutUrl {
 		cbbUrls.addActionListener(controlleurPrincipal);
 		add(cbbUrls);
 		
+		txbTag.addKeyListener(controlleurPrincipal);
+		
 		initialiserLeModele();
 		
 		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur

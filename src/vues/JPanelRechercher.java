@@ -92,6 +92,7 @@ public class JPanelRechercher extends JPanel {
 		txbRecherche = new JTextField();
 		txbRecherche.setBounds(135, 30, 391, 19);
 		txbRecherche.setName("Rechercher");
+		txbRecherche.addKeyListener(controlleurPrincipal);
 		add(txbRecherche);
 		txbRecherche.setColumns(10);
 		

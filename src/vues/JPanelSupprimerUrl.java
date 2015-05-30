@@ -31,7 +31,7 @@ public class JPanelSupprimerUrl extends JPanel {
 	protected JLabel lblMPAdresse;
 	protected JButton btnAnnuler;
 	protected JButton btnValider;
-	protected JLabelErreur lblErreurs;
+	protected JLabelErreur lblErreur;
 	
 	public JComboBox<String> getCbbUrls() {
 		return cbbUrls;
@@ -65,8 +65,8 @@ public class JPanelSupprimerUrl extends JPanel {
 		return btnValider;
 	}
 
-	public JLabelErreur getLblErreurs() {
-		return lblErreurs;
+	public JLabelErreur getLblErreur() {
+		return lblErreur;
 	}
 
 	/* **********************************
@@ -123,8 +123,8 @@ public class JPanelSupprimerUrl extends JPanel {
 		btnValider.addActionListener(controlleurPrincipal);
 		add(btnValider);
 		
-		lblErreurs = new JLabelErreur();
-		add(lblErreurs);
+		lblErreur = new JLabelErreur();
+		add(lblErreur);
 		
 		reinitialiserCombobox(controlleurPrincipal.getUtilisateurConnecte());
 		
@@ -174,6 +174,6 @@ public class JPanelSupprimerUrl extends JPanel {
 			cbbUrls.setSelectedIndex(0);
 		
 		//on cache le label d'erreurs
-		lblErreurs.setVisible(false);
+		lblErreur.setVisible(false);
 	}//fin afficherPartieValidation
 }

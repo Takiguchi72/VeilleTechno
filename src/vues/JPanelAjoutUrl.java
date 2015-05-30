@@ -145,6 +145,7 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		txbTag = new JTextField();
 		txbTag.setBounds(120, 100, 180, 19);
 		txbTag.setName("Tag");
+		txbTag.addKeyListener(controlleurPrincipal);
 		add(txbTag);
 		
 		btnAjouter = new JButton("Ajouter");
@@ -174,18 +175,17 @@ public class JPanelAjoutUrl extends JPanel implements JPanelPersonnalise{
 		btnEnregistrer.addActionListener(controlleurPrincipal);
 		add(btnEnregistrer);
 		
+		initialiserLeModele();
+		
 		//Définition du tableau qui contiendra les tags ajoutés par l'utilisateur
 		tableTags = new JTable(leModele);
 		
 		scrollPane = new JScrollPane(tableTags, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setBounds(340, 90, 370, 230);
-		
 		add(scrollPane);
 		
 		lblErreur = new JLabelErreur();
 		add(lblErreur);
-		
-		initialiserLeModele();
 		
 		txbIntitule.requestFocus();
 	}//fin constructeur

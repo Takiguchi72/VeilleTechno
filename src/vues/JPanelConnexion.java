@@ -82,6 +82,7 @@ public class JPanelConnexion extends JPanel implements JPanelPersonnalise{
 		txbIdentifiant = new JTextField();
 		txbIdentifiant.setBounds(368, 133, 244, 22);
 		txbIdentifiant.setName("Identifiant");
+		txbIdentifiant.addKeyListener(controlleurPrincipal);
 		add(txbIdentifiant);
 		
 		lblMotDePasse = new JLabel("Mot de passe :");
@@ -94,6 +95,7 @@ public class JPanelConnexion extends JPanel implements JPanelPersonnalise{
 		pswdField = new JPasswordField();
 		pswdField.setBounds(368, 184, 244, 22);
 		pswdField.setName("Mot de passe");
+		pswdField.addKeyListener(controlleurPrincipal);
 		add(pswdField);
 		
 		btnConnexion = new JButton("Connexion");
