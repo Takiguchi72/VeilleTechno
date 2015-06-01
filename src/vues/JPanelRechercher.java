@@ -37,7 +37,7 @@ public class JPanelRechercher extends JPanel {
 	 * Retourne l'attribut tableUrls du panel
 	 * @return L'attribut tableUrls [JTableRechercher]
 	 */
-	public JTable getTableUrls() {
+	public JTableRechercher getTableUrls() {
 		return tableUrls;
 	}
 

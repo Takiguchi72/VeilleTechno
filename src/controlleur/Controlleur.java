@@ -236,6 +236,9 @@ public class Controlleur implements ActionListener, MouseListener , KeyListener{
 				//On replace le focus dans la barre de recherche, et on selectionne le texte
 				laFenetre.getPanelRecherche().getTxbRecherche().requestFocus();
 				laFenetre.getPanelRecherche().getTxbRecherche().selectAll();
+				
+				//On remet en forme le tableau
+				laFenetre.getPanelRecherche().getTableUrls().mettreEnFormeLeTableau();
 			} catch (Exception ex) {
 				//On cache le scrollPane
 				laFenetre.getPanelRecherche().getScrollPane().setVisible(false);
@@ -687,4 +690,6 @@ public class Controlleur implements ActionListener, MouseListener , KeyListener{
 		ErrorManagement.hideErrorField(laFenetre.getPanelSupprimer().getLblErreur());
 		ErrorManagement.hideErrorField(laFenetre.getPanelConnexion().getLblErreur());
 	}
+	
+	
 }//fin classe

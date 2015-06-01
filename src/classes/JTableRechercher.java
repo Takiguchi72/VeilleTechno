@@ -4,6 +4,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableColumn;
+
 import controlleur.Controlleur;
 
 public class JTableRechercher extends JTable {
@@ -26,7 +27,7 @@ public class JTableRechercher extends JTable {
         addMouseListener(controlleurPrincipal);
         
         //On permet à l'utilisateur de trier le contenu en cliquant sur l'entete des colonnes
-        //setAutoCreateRowSorter(true);
+        setAutoCreateRowSorter(true);
 	}//fin constructeur
 	
 	/* **********************************
@@ -62,36 +63,43 @@ public class JTableRechercher extends JTable {
 	/**
 	 * Applique un style personnalisé pour le contenu de chaque colonnes
 	 */
-	private void mettreEnFormeLeTableau()
+	public void mettreEnFormeLeTableau()
 	{
-		super.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+//		super.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		
 		//On va définir la taille de chaque colonne de la table
 		//On récupère la 1ère colonne
-		TableColumn col = getColumnModel().getColumn(0);
+		TableColumn col = this.getColumnModel().getColumn(0);
 		
 		//On lui définit sa largeur
-		col.setPreferredWidth(145);
+		col.setPreferredWidth(45);
+		col.setWidth(45);
+		col.setResizable(false);
 		col.setMaxWidth(45);
-		
+		col.setMinWidth(45);
 		//On aligne son contenu pour le centrer
 		alignerContenuColonne(col,"CENTER");
 
 		//On fait de même avec les autres colonnes
 		//2ème colonne
 		col = getColumnModel().getColumn(1);
-		col.setPreferredWidth(340);
+		col.setPreferredWidth(340);col.setWidth(340);
+		col.setResizable(false);
 		col.setMaxWidth(340);
+		col.setMinWidth(340);
 		
 		//3ème colonne
 		col = getColumnModel().getColumn(2);
-		col.setPreferredWidth(275);
+		col.setPreferredWidth(275);col.setWidth(275);
+		col.setResizable(false);
 		col.setMaxWidth(275);
+		col.setMinWidth(275);
 		
 		//4ème colonne
 		col = getColumnModel().getColumn(3);
-		col.setPreferredWidth(70);
-		col.setMaxWidth(70);
+		col.setPreferredWidth(70);col.setWidth(70);
+		col.setResizable(false);
+		col.setMaxWidth(70);col.setMinWidth(70);
 		alignerContenuColonne(col,"CENTER");
 	}//fin mettreEnFormeLeTableau
 }//fin classe
